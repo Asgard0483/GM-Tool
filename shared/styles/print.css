@@ -1,0 +1,102 @@
+/* Print Themes Design System */
+
+@media print {
+  @page {
+    margin: 1.5cm;
+    size: A4;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Shared Print Reset */
+  header, footer, nav, aside, button, .no-print {
+    display: none !important;
+  }
+
+  .print-page {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .print-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 1rem;
+  }
+
+  .print-section {
+    margin-bottom: 2rem;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    margin-top: 0;
+    page-break-after: avoid;
+  }
+
+  p, li {
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Themes */
+
+  /* LEGENDARY (Parchment Style) */
+  [data-print-theme="legendary"] {
+    font-family: 'Georgia', serif;
+    color: #4a3728;
+  }
+
+  [data-print-theme="legendary"] h1,
+  [data-print-theme="legendary"] h2 {
+    font-family: 'Times New Roman', serif;
+    color: #8b0000;
+    text-transform: capitalize;
+  }
+
+  [data-print-theme="legendary"] .print-card {
+    border: 1px solid #d4c4a8;
+    background: #fffcf5;
+    padding: 1.5rem;
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  /* MINIMALIST (Modern / Scientific) */
+  [data-print-theme="minimalist"] {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    color: #000;
+  }
+
+  [data-print-theme="minimalist"] .print-card {
+    border-left: 4px solid #333;
+    padding: 1rem 0 1rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* DARK (Digital only PDF) */
+  [data-print-theme="dark-digital"] {
+    background: #1a1a1a !important;
+    color: #e0e0e0 !important;
+  }
+}
+
+/* Visibility classes for screen-preview */
+.print-only { display: none; }
+@media print {
+  .print-only { display: block; }
+  .screen-only { display: none; }
+}

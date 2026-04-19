@@ -1,0 +1,237 @@
+.roller {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  height: 480px;
+}
+
+.tabs {
+  display: flex;
+  background: var(--color-bg-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab {
+  flex: 1;
+  padding: var(--space-3) var(--space-2);
+  border: none;
+  background: none;
+  color: var(--color-text-tertiary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tabActive {
+  background: var(--color-bg-card);
+  color: var(--color-accent);
+}
+
+.content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Roll Tab */
+.rollTab {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  height: 100%;
+}
+
+.diceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+}
+
+.dieBtn {
+  aspect-ratio: 1;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.dieBtn:hover {
+  border-color: var(--color-accent);
+  background: var(--color-bg-hover);
+  transform: translateY(-2px);
+}
+
+.dieType {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+}
+
+.inputArea {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.input {
+  flex: 1;
+  background: var(--color-bg-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+}
+
+.resultArea {
+  flex: 1;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--color-border);
+  position: relative;
+}
+
+.rolling .total {
+  animation: pulse 0.4s infinite alternate;
+}
+
+.total {
+  font-family: var(--font-display);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  color: var(--color-accent);
+}
+
+.detail {
+  font-size: var(--text-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-1);
+}
+
+.placeholder {
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+/* History & Favs */
+.historyTab, .favsTab {
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-1) var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  color: var(--color-text-tertiary);
+}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.listFormula {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.listLabel {
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  display: block;
+}
+
+.listResult {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-accent);
+}
+
+.favItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.favItem:hover {
+  border-color: var(--color-accent);
+  background: var(--color-bg-hover);
+}
+
+.favLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+}
+
+.favFormula {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+.favDelete {
+  padding: var(--space-2);
+  color: var(--color-text-tertiary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.favDelete:hover {
+  color: var(--color-danger);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--space-8);
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+@keyframes pulse {
+  from { transform: scale(0.95); opacity: 0.6; }
+  to { transform: scale(1.05); opacity: 1; }
+}
