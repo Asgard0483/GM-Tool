@@ -48,4 +48,33 @@ Alle Daten werden **lokal im Browser** (LocalStorage/IndexedDB) gespeichert. Es 
 
 ---
 
+## 🚀 So bringst du dein Tool online (GitHub Deployment)
+
+Da das Tool für **GitHub Pages** optimiert ist, kannst du es in wenigen Augenblicken weltweit (nur für dich oder deine Gruppe) online schalten:
+
+### 1. Repository erstellen
+Erstelle ein neues Projekt auf [GitHub](https://github.com/new). Nenne es z.B. `ultimate-gm-tool`.
+
+### 2. Dateien hochladen 
+**WICHTIG:** Lade **NICHT** den Ordner `node_modules` hoch. Dieser ist viel zu groß und wird nicht benötigt.
+- Nutze entweder Git (empfohlen):
+  ```bash
+  git init
+  git remote add origin https://github.com/[DEIN-NAME]/[REPO-NAME].git
+  git add .
+  git commit -m "Initial GM Tool Release"
+  git push -u origin main
+  ```
+- Oder ziehe einfach alle Dateien (außer `node_modules` und `dist`) per Drag-and-Drop in dein GitHub-Fenster.
+
+### 3. Online-Funktion aktivieren
+1. Gehe in deinem GitHub-Repository auf **Settings** > **Pages**.
+2. Wähle unter "Build and deployment" > "Source" die Option **"GitHub Actions"** aus.
+3. Das war's! In ca. 1 Minute ist dein Tool unter `https://[DEIN-NAME].github.io/[REPO-NAME]/` online.
+
+### 🔒 Deine Daten sind sicher
+Auch wenn das Tool online läuft: Deine Kampagnen-Daten werden **niemals** auf einen Server hochgeladen. Sie werden verschlüsselt in der Datenbank deines eigenen Browsers (IndexedDB) gespeichert.
+
+---
+
 *Erstellt mit ❤️ für die Pen-&-Paper Community.*
