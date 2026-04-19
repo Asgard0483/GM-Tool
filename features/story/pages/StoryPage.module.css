@@ -1,0 +1,61 @@
+.page { display: flex; flex-direction: column; flex: 1; }
+
+.tabs {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-surface);
+  overflow-x: auto;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  border: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.tab:hover { background: var(--color-bg-muted); color: var(--color-text-secondary); }
+.tabActive { background: var(--color-bg-active); color: var(--color-text-primary); }
+
+.tabCount {
+  display: inline-flex; justify-content: center; align-items: center;
+  font-size: 11px; padding: 0 6px; border-radius: var(--radius-full);
+  background: var(--color-border-strong); color: var(--color-bg-surface);
+}
+.tabActive .tabCount { background: var(--color-text-primary); }
+
+.content { flex: 1; overflow: auto; padding: var(--space-6) var(--space-8); }
+
+.list { display: flex; flex-direction: column; gap: var(--space-3); max-width: 800px; margin: 0 auto; }
+
+.item {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4); border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border); background: var(--color-bg-surface);
+  cursor: pointer; transition: all var(--transition-fast);
+}
+.item:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); border-color: var(--color-border-strong); }
+
+.itemNumber {
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-full); background: var(--color-accent-light);
+  color: var(--color-accent); font-weight: var(--font-bold);
+  flex-shrink: 0;
+}
+
+.itemContent { flex: 1; min-width: 0; }
+.itemTitle { font-size: var(--text-md); font-weight: var(--font-semibold); color: var(--color-text-primary); margin-bottom: 2px; }
+.itemSummary { font-size: var(--text-sm); color: var(--color-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.itemRight { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-2); flex-shrink: 0; }
+.date { font-size: var(--text-xs); color: var(--color-text-tertiary); }
