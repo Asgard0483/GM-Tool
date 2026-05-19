@@ -1,0 +1,111 @@
+/* ============================================================
+   GLOBAL STYLES
+   ============================================================ */
+@import './tokens.css';
+@import './reset.css';
+@import '../shared/styles/print.css';
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-bg-muted); }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-tertiary); }
+
+/* --- Focus --- */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--radius-sm);
+}
+
+/* --- Selection --- */
+::selection {
+  background: var(--color-accent-muted);
+  color: var(--color-text-primary);
+}
+
+/* --- Utility Classes --- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}
+
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* --- Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fade-in   { animation: fadeIn 220ms ease both; }
+.animate-scale-in  { animation: scaleIn 180ms ease both; }
+.animate-slide-in  { animation: slideInRight 200ms ease both; }
+
+/* --- Print / PDF --- */
+@media print {
+  /* Hide chrome */
+  .no-print, aside, nav, [class*="Sidebar"],
+  [class*="sidebar"], [class*="PageHeader_actions"],
+  [class*="toast"], [class*="GlobalSearch"] {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: #111 !important;
+    font-size: 11pt;
+  }
+
+  /* Layout */
+  [class*="AppShell"], [class*="appShell"] {
+    display: block !important;
+  }
+  [class*="main"], [class*="content"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Detail pages: show full body */
+  [class*="DetailPage"] {
+    display: block !important;
+  }
+
+  /* Typography reset for print */
+  h1, h2, h3, h4 { page-break-after: avoid; color: #111 !important; }
+  p { orphans: 3; widows: 3; }
+
+  /* Section cards */
+  [class*="section"] {
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  /* Page breaks */
+  .print-page { page-break-after: always; }
+  .print-break-before { page-break-before: always; }
+}
+

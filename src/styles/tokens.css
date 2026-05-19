@@ -1,0 +1,155 @@
+/* ============================================================
+   DESIGN TOKENS — CSS Custom Properties
+   Ultimate GM Tool
+   ============================================================ */
+
+:root {
+  /* --- Color Palette (light) --- */
+  --color-bg-base:        #f8f8f7;
+  --color-bg-surface:     #ffffff;
+  --color-bg-elevated:    #ffffff;
+  --color-bg-overlay:     rgba(0, 0, 0, 0.45);
+  --color-bg-muted:       #f1f0ef;
+  --color-bg-hover:       #eeede9;
+  --color-bg-active:      #e6e4de;
+
+  --color-border:         #e2e0da;
+  --color-border-strong:  #ccc9c0;
+  --color-border-focus:   var(--color-accent);
+
+  --color-text-primary:   #1a1916;
+  --color-text-secondary: #6b6860;
+  --color-text-tertiary:  #9e9b94;
+  --color-text-inverse:   #ffffff;
+  --color-text-link:      var(--color-accent);
+
+  /* --- Accent (Indigo) --- */
+  --color-accent:         #6366f1;
+  --color-accent-hover:   #4f52d6;
+  --color-accent-light:   #eef2ff;
+  --color-accent-muted:   #c7d2fe;
+
+  /* --- Semantic Colors --- */
+  --color-success:        #16a34a;
+  --color-success-light:  #dcfce7;
+  --color-warning:        #d97706;
+  --color-warning-light:  #fef3c7;
+  --color-danger:         #dc2626;
+  --color-danger-light:   #fee2e2;
+  --color-info:           #0284c7;
+  --color-info-light:     #e0f2fe;
+
+  /* --- Relationship Type Colors --- */
+  --rel-familie:          #7c3aed;
+  --rel-freundschaft:     #16a34a;
+  --rel-bekanntschaft:    #6b7280;
+  --rel-allianz:          #0284c7;
+  --rel-loyalitaet:       #0891b2;
+  --rel-schuld:           #d97706;
+  --rel-rivalitaet:       #ea580c;
+  --rel-feindschaft:      #dc2626;
+  --rel-mentor:           #7c3aed;
+  --rel-liebe:            #db2777;
+  --rel-geheim:           #374151;
+
+  /* --- Typography --- */
+  --font-sans:            'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:         'Outfit', var(--font-sans);
+  --font-mono:            'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs:    0.75rem;
+  --text-sm:    0.8125rem;
+  --text-base:  0.9375rem;
+  --text-md:    1rem;
+  --text-lg:    1.125rem;
+  --text-xl:    1.375rem;
+  --text-2xl:   1.75rem;
+  --text-3xl:   2.25rem;
+
+  --font-light:   300;
+  --font-normal:  400;
+  --font-medium:  500;
+  --font-semibold: 600;
+  --font-bold:    700;
+
+  --leading-tight:  1.25;
+  --leading-snug:   1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+  --tracking-wider:  0.05em;
+
+  /* --- Spacing --- */
+  --space-1:    0.25rem;
+  --space-2:    0.5rem;
+  --space-3:    0.75rem;
+  --space-4:    1rem;
+  --space-5:    1.25rem;
+  --space-6:    1.5rem;
+  --space-8:    2rem;
+  --space-10:   2.5rem;
+  --space-12:   3rem;
+  --space-16:   4rem;
+  --space-20:   5rem;
+
+  /* --- Radii --- */
+  --radius-sm:  0.25rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --radius-xl:  1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md:  0 2px 8px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.06);
+  --shadow-xl:  0 16px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.07);
+  --shadow-focus: 0 0 0 3px var(--color-accent-muted);
+
+  /* --- Transitions --- */
+  --transition-fast:   100ms ease;
+  --transition-base:   180ms ease;
+  --transition-slow:   280ms ease;
+
+  /* --- Layout --- */
+  --sidebar-width:     240px;
+  --content-max-width: 1280px;
+  --topbar-height:     0px;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --color-bg-base:        #111110;
+  --color-bg-surface:     #1a1916;
+  --color-bg-elevated:    #232220;
+  --color-bg-overlay:     rgba(0, 0, 0, 0.65);
+  --color-bg-muted:       #1f1e1b;
+  --color-bg-hover:       #2a2825;
+  --color-bg-active:      #333128;
+
+  --color-border:         #2d2b26;
+  --color-border-strong:  #3d3b35;
+  --color-border-focus:   var(--color-accent);
+
+  --color-text-primary:   #f0ede8;
+  --color-text-secondary: #9e9b94;
+  --color-text-tertiary:  #6b6860;
+  --color-text-inverse:   #111110;
+
+  --color-accent-light:   #1e1b4b;
+  --color-accent-muted:   #3730a3;
+
+  --color-success-light:  #052e16;
+  --color-warning-light:  #1c1004;
+  --color-danger-light:   #1f0606;
+  --color-info-light:     #041929;
+
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md:  0 2px 8px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.15);
+  --shadow-lg:  0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+  --shadow-xl:  0 16px 40px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25);
+}
