@@ -9,6 +9,7 @@ import Badge from '@/shared/components/atoms/Badge';
 import RichText from '@/shared/components/atoms/RichText';
 import { useTranslation } from '@/shared/i18n/useTranslation';
 import { formatDate } from '@/shared/utils/helpers';
+import EntityTimeline from '@/shared/components/molecules/EntityTimeline';
 import styles from './WorldEntityDetailPage.module.css';
 
 // Removed CAT_LABELS and STATUS_LABELS in favor of standard translations
@@ -75,6 +76,11 @@ export default function WorldEntityDetailPage() {
 
       <div className={styles.body}>
         <div className={styles.main}>
+          {entity.imageUrl && (
+            <div className={styles.imageHeader}>
+              <img src={entity.imageUrl} alt={entity.title} className={styles.mapImage} />
+            </div>
+          )}
           {entity.summary && (
             <div className={styles.section}>
               <h3 className={styles.sectionTitle}>{t('common.summary')}</h3>
@@ -93,6 +99,12 @@ export default function WorldEntityDetailPage() {
               <div className={styles.text}><RichText content={entity.notes} /></div>
             </div>
           )}
+
+          <EntityTimeline 
+            entityId={entity.id} 
+            entityType={entity.entityType} 
+            entityName={entity.title} 
+          />
         </div>
 
         <div className={styles.sidebar}>

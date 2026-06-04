@@ -7,6 +7,7 @@ import { useToast } from '@/shared/components/atoms/Toast';
 import PageHeader from '@/shared/components/layout/PageHeader';
 import Button from '@/shared/components/atoms/Button';
 import { FormField, Input, Textarea, Select } from '@/shared/components/atoms/FormField';
+import ImageUploadField from '@/shared/components/molecules/ImageUploadField';
 import { useTranslation } from '@/shared/i18n/useTranslation';
 import type { Character } from '@/shared/types';
 import styles from './NewCharacterPage.module.css';
@@ -135,9 +136,13 @@ export default function NewCharacterPage() {
             <FormField label={t('characters.origin')}>
               <Input value={form.origin} onChange={e => set('origin', e.target.value)} />
             </FormField>
-            <FormField label="Portrait URL" hint="URL zu einem Bild">
-              <Input value={form.portraitUrl || ''} onChange={e => set('portraitUrl', e.target.value)} placeholder="https://..." />
-            </FormField>
+            <div className={styles.fullWidth}>
+              <ImageUploadField 
+                label="Portrait Bild" 
+                value={form.portraitUrl} 
+                onChange={val => set('portraitUrl', val)} 
+              />
+            </div>
             <div className={styles.fullWidth}>
               <FormField label={t('common.summary')}>
                 <Textarea value={form.short_description} onChange={e => set('short_description', e.target.value)} rows={3} />

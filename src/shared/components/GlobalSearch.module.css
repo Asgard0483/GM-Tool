@@ -13,8 +13,10 @@
 
 .palette {
   width: min(620px, 95vw);
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-strong);
+  background: var(--color-bg-elevated);
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  border: 1px solid var(--color-border-glass);
   border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-xl);
   overflow: hidden;

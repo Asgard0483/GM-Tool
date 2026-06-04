@@ -6,6 +6,7 @@ import { useToast } from '@/shared/components/atoms/Toast';
 import PageHeader from '@/shared/components/layout/PageHeader';
 import Button from '@/shared/components/atoms/Button';
 import { FormField, Input, Textarea, Select } from '@/shared/components/atoms/FormField';
+import ImageUploadField from '@/shared/components/molecules/ImageUploadField';
 import { useTranslation } from '@/shared/i18n/useTranslation';
 import type { WorldEntity } from '@/shared/types';
 import styles from './NewWorldEntityPage.module.css';
@@ -30,6 +31,7 @@ export default function NewWorldEntityPage() {
     faction_id: baseEmpty.faction_id,
     tags: baseEmpty.tags,
     notes: baseEmpty.notes,
+    imageUrl: baseEmpty.imageUrl || '',
     metadata: baseEmpty.metadata,
     campaignId: '',
   });
@@ -117,6 +119,11 @@ export default function NewWorldEntityPage() {
         </div>
 
         <div className={styles.formStack}>
+          <ImageUploadField 
+            label="Bild / Karten-URL" 
+            value={form.imageUrl} 
+            onChange={val => set('imageUrl', val)} 
+          />
           <FormField label={t('common.summary')}>
             <Textarea value={form.summary} onChange={e => set('summary', e.target.value)} rows={2} />
           </FormField>

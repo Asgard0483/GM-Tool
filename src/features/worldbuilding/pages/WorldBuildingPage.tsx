@@ -77,11 +77,16 @@ export default function WorldBuildingPage() {
             {filtered.map(e => (
               <div key={e.id} className={styles.item} onClick={() => navigate(`/worldbuilding/${e.id}`)}>
                 <div className={styles.itemLeft}>
-                  <Badge variant={CAT_VARIANTS[e.entityType] ?? 'default'} size="sm">
-                    {t(`types.world.${e.entityType}`)}
-                  </Badge>
+                  {e.imageUrl && (
+                    <img src={e.imageUrl} alt={e.title} className={styles.thumbnail} />
+                  )}
                   <div>
-                    <div className={styles.itemTitle}>{e.title}</div>
+                    <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center', marginBottom: 'var(--space-1)' }}>
+                      <Badge variant={CAT_VARIANTS[e.entityType] ?? 'default'} size="sm">
+                        {t(`types.world.${e.entityType}`)}
+                      </Badge>
+                      <div className={styles.itemTitle}>{e.title}</div>
+                    </div>
                     {e.summary && <div className={styles.itemSummary}>{e.summary}</div>}
                   </div>
                 </div>

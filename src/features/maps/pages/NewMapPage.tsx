@@ -6,6 +6,7 @@ import { useTranslation } from '@/shared/i18n/useTranslation';
 import PageHeader from '@/shared/components/layout/PageHeader';
 import Button from '@/shared/components/atoms/Button';
 import { FormField, Input, Textarea } from '@/shared/components/atoms/FormField';
+import ImageUploadField from '@/shared/components/molecules/ImageUploadField';
 import styles from './MapForm.module.css';
 
 export default function NewMapPage() {
@@ -53,13 +54,11 @@ export default function NewMapPage() {
             />
           </FormField>
 
-          <FormField label={t('maps.imageUrl')} required hint="URL zu einem Bild (Imgur, Pinterest, etc.)">
-            <Input
-              value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
-              placeholder="https://..."
-            />
-          </FormField>
+          <ImageUploadField 
+            label="Kartenbild" 
+            value={imageUrl} 
+            onChange={setImageUrl} 
+          />
 
           <FormField label={t('common.description')}>
             <Textarea
@@ -69,20 +68,6 @@ export default function NewMapPage() {
               rows={4}
             />
           </FormField>
-          
-          <div className={styles.preview}>
-            <div className={styles.previewLabel}>Vorschau</div>
-            <div className={styles.previewBox}>
-                {imageUrl ? (
-                    <img src={imageUrl} alt="Map Preview" onError={(e) => (e.currentTarget.style.display = 'none')} />
-                ) : (
-                    <div className={styles.previewPlaceholder}>
-                        <MapIcon size={32} />
-                        <span>Keine URL angegeben</span>
-                    </div>
-                )}
-            </div>
-          </div>
         </div>
 
         <div className={styles.actions}>

@@ -22,7 +22,8 @@ export type EntityType =
   | 'mechanic'
   | 'story'
   | 'map'
-  | 'calendar_event';
+  | 'calendar_event'
+  | 'item';
 
 export interface BaseEntity {
   id: string;
@@ -150,6 +151,7 @@ export interface WorldEntity extends BaseEntity {
   related_character_ids: string[];
   related_gameplay_ids: string[];
   historical_references: string[];
+  imageUrl?: string;
 }
 
 // ============================================================
@@ -219,6 +221,22 @@ export interface StoryEntity extends BaseEntity {
 }
 
 // ============================================================
+// ITEMS
+// ============================================================
+
+export type ItemRarity = 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary' | 'unique';
+
+export interface ItemEntity extends BaseEntity {
+  entityType: 'item';
+  title: string;
+  rarity: ItemRarity;
+  stats: string;
+  description: string;
+  background: string;
+  ownerId?: string; // ID of the character who owns it
+}
+
+// ============================================================
 // MAPS
 // ============================================================
 
@@ -277,6 +295,8 @@ export interface CalendarEvent extends BaseEntity {
   month: number;
   year: number;
   color?: string;
+  linkedEntityId?: string;
+  linkedEntityType?: EntityType;
 }
 
 export interface CalendarConfig {

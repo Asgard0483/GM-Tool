@@ -46,6 +46,7 @@ export const de = {
     export: 'Export Center',
     settings: 'Einstellungen',
     maps: 'Karten',
+    calendar: 'Kalender',
     search: 'Suche (Cmd+K)',
     searchNoResults: 'Keine Ergebnisse für „{{query}}“',
   },

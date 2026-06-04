@@ -12,8 +12,10 @@
 }
 
 .panel {
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  border: 1px solid var(--color-border-glass);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
   display: flex;
@@ -32,7 +34,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-5) var(--space-6) var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-glass);
   flex-shrink: 0;
 }
 
@@ -64,7 +66,7 @@
 
 .footer {
   padding: var(--space-4) var(--space-6);
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid var(--color-border-glass);
   display: flex;
   justify-content: flex-end;
   gap: var(--space-3);

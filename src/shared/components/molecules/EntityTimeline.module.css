@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--color-bg-elevated);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+}
+
+.empty {
+  color: var(--color-text-tertiary);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  padding: var(--space-4) 0;
+  text-align: center;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: var(--space-3);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 7px;
+  width: 2px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.timelineItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3) 0 var(--space-3) var(--space-4);
+  position: relative;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.timelineItem:hover {
+  background: var(--color-bg-hover);
+}
+
+.marker {
+  position: absolute;
+  left: -9px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  background: var(--color-primary);
+  border: 2px solid var(--color-bg-elevated);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--color-primary-alpha);
+  z-index: 1;
+}
+
+.date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.eventTitle {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.eventDesc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}

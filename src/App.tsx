@@ -48,8 +48,15 @@ import CalendarPage from '@/features/calendar/pages/CalendarPage';
 // Story
 import StoryPage from '@/features/story/pages/StoryPage';
 import StoryDetailPage from '@/features/story/pages/StoryDetailPage';
+import ItemsPage from './features/items/pages/ItemsPage';
+import NewItemPage from './features/items/pages/NewItemPage';
+import EditItemPage from './features/items/pages/EditItemPage';
+import ItemDetailPage from './features/items/pages/ItemDetailPage';
 import NewStoryPage from '@/features/story/pages/NewStoryPage';
 import EditStoryPage from '@/features/story/pages/EditStoryPage';
+
+// Changelog
+import ChangelogPage from '@/features/changelog/pages/ChangelogPage';
 
 export default function App() {
   const { settings } = useSettingsStore();
@@ -69,6 +76,12 @@ export default function App() {
           {/* Dashboard & Settings */}
           <Route path="/" element={<DashboardPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+
+          {/* Items */}
+          <Route path="/items" element={<ItemsPage />} />
+          <Route path="/items/new" element={<NewItemPage />} />
+          <Route path="/items/:id" element={<ItemDetailPage />} />
+          <Route path="/items/:id/edit" element={<EditItemPage />} />
 
           {/* Characters */}
           <Route path="/characters" element={<CharactersPage />} />
@@ -106,6 +119,9 @@ export default function App() {
           <Route path="/maps/new" element={<NewMapPage />} />
           <Route path="/maps/:id" element={<MapDetailPage />} />
           <Route path="/maps/:id/edit" element={<EditMapPage />} />
+
+          {/* Changelog */}
+          <Route path="/changelog" element={<ChangelogPage />} />
 
           {/* Fallback 404 */}
           <Route path="*" element={<NotFoundPage />} />

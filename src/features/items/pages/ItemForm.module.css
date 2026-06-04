@@ -1,0 +1,5 @@
+.page { display: flex; flex-direction: column; flex: 1; }
+.formBody { padding: var(--space-6) var(--space-8); flex: 1; overflow-y: auto; }
+.formGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6); }
+.formStack { display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-6); }
+.nav { display: flex; justify-content: flex-end; padding-top: var(--space-6); border-top: 1px solid var(--color-border); }

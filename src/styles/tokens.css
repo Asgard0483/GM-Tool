@@ -5,16 +5,17 @@
 
 :root {
   /* --- Color Palette (light) --- */
-  --color-bg-base:        #f8f8f7;
-  --color-bg-surface:     #ffffff;
-  --color-bg-elevated:    #ffffff;
+  --color-bg-base:        #f8f8f7; /* Keep base solid or we use gradient later */
+  --color-bg-surface:     rgba(255, 255, 255, 0.7);
+  --color-bg-elevated:    rgba(255, 255, 255, 0.85);
   --color-bg-overlay:     rgba(0, 0, 0, 0.45);
-  --color-bg-muted:       #f1f0ef;
-  --color-bg-hover:       #eeede9;
-  --color-bg-active:      #e6e4de;
+  --color-bg-muted:       rgba(241, 240, 239, 0.5);
+  --color-bg-hover:       rgba(238, 237, 233, 0.6);
+  --color-bg-active:      rgba(230, 228, 222, 0.8);
 
-  --color-border:         #e2e0da;
-  --color-border-strong:  #ccc9c0;
+  --color-border:         rgba(226, 224, 218, 0.5);
+  --color-border-strong:  rgba(204, 201, 192, 0.6);
+  --color-border-glass:   rgba(255, 255, 255, 0.4);
   --color-border-focus:   var(--color-accent);
 
   --color-text-primary:   #1a1916;
@@ -115,6 +116,12 @@
   --transition-base:   180ms ease;
   --transition-slow:   280ms ease;
 
+  /* --- Glassmorphism --- */
+  --blur-sm: blur(4px);
+  --blur-md: blur(8px);
+  --blur-lg: blur(16px);
+  --blur-xl: blur(24px);
+
   /* --- Layout --- */
   --sidebar-width:     240px;
   --content-max-width: 1280px;
@@ -124,15 +131,16 @@
 /* Dark Mode */
 [data-theme="dark"] {
   --color-bg-base:        #111110;
-  --color-bg-surface:     #1a1916;
-  --color-bg-elevated:    #232220;
+  --color-bg-surface:     rgba(26, 25, 22, 0.6);
+  --color-bg-elevated:    rgba(35, 34, 32, 0.7);
   --color-bg-overlay:     rgba(0, 0, 0, 0.65);
-  --color-bg-muted:       #1f1e1b;
-  --color-bg-hover:       #2a2825;
-  --color-bg-active:      #333128;
+  --color-bg-muted:       rgba(31, 30, 27, 0.5);
+  --color-bg-hover:       rgba(42, 40, 37, 0.6);
+  --color-bg-active:      rgba(51, 49, 40, 0.8);
 
-  --color-border:         #2d2b26;
-  --color-border-strong:  #3d3b35;
+  --color-border:         rgba(45, 43, 38, 0.6);
+  --color-border-strong:  rgba(61, 59, 53, 0.8);
+  --color-border-glass:   rgba(255, 255, 255, 0.05);
   --color-border-focus:   var(--color-accent);
 
   --color-text-primary:   #f0ede8;

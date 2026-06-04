@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, GitBranch, Network, Globe,
-  Swords, Download, Sun, Moon, Scroll, Search, Settings, BookOpen, Map, Calendar
+  Swords, Download, Sun, Moon, Scroll, Search, Settings, BookOpen, Map, Calendar, Package
 } from 'lucide-react';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useCampaignStore } from '@/store/campaignStore';
@@ -24,6 +24,7 @@ export default function Sidebar() {
   const navItems = [
     { to: '/', icon: LayoutDashboard, label: 'Dashboard', end: true },
     { to: '/characters', icon: Users, label: t('sidebar.characters') },
+    { to: '/items', icon: Package, label: 'Gegenstände' },
     { to: '/story', icon: BookOpen, label: t('sidebar.story') },
     { to: '/worldbuilding', icon: Globe, label: t('sidebar.worldbuilding') },
     { to: '/maps', icon: Map, label: t('sidebar.maps') },
@@ -114,6 +115,11 @@ export default function Sidebar() {
         >
           {settings.theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
         </button>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: 'var(--space-4)' }}>
+        <NavLink to="/changelog" style={{ fontSize: '10px', color: 'var(--color-text-tertiary)', textDecoration: 'none' }}>
+          v1.2.0 – Changelog
+        </NavLink>
       </div>
     </aside>
   );

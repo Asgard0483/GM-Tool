@@ -7,7 +7,7 @@
 .main {
   flex: 1;
   min-width: 0;
-  background: var(--color-bg-base);
+  background: transparent;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

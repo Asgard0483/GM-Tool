@@ -51,12 +51,42 @@
 }
 
 .monthTitle {
-  flex: 1;
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   font-weight: var(--font-bold);
   color: var(--color-text-primary);
-  text-align: center;
+  text-align: right;
+}
+
+.yearInput {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  width: 80px;
+  text-align: left;
+  padding: 0 var(--space-2);
+  transition: all var(--transition-fast);
+  flex: 1;
+}
+
+.yearInput:hover, .yearInput:focus {
+  border-color: var(--color-border);
+  background: var(--color-bg-surface);
+  outline: none;
+}
+
+/* Hide number arrows */
+.yearInput::-webkit-outer-spin-button,
+.yearInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.yearInput[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* Grid */
@@ -144,6 +174,38 @@
   flex-direction: column;
 }
 
+.sidebarTabs {
+  display: flex;
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  margin-bottom: var(--space-4);
+}
+
+.sidebarTab {
+  flex: 1;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sidebarTab:hover {
+  color: var(--color-text-primary);
+}
+
+.sidebarTabActive {
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
 .sidebarTitle {
   font-size: var(--text-lg);
   font-weight: var(--font-bold);
@@ -161,6 +223,11 @@
 .eventItem {
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-border);
+  transition: background var(--transition-fast);
+  border-radius: var(--radius-sm);
+}
+.eventItem:hover {
+  background: var(--color-bg-hover);
 }
 
 .eventDate {

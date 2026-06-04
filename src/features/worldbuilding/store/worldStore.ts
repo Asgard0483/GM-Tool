@@ -28,6 +28,7 @@ export const createEmptyWorldEntity = (type: WorldEntityType = 'place'): Omit<Wo
   related_gameplay_ids: [],
   historical_references: [],
   notes: '',
+  imageUrl: '',
   metadata: {}, campaignId: '',
 });
 

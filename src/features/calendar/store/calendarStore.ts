@@ -5,23 +5,40 @@ import type { CalendarEvent, CalendarConfig } from '@/shared/types';
 import { generateId, now } from '@/shared/utils/helpers';
 import { useCampaignStore } from '@/store/campaignStore';
 
+/**
+ * Zustand store interface for managing calendar state.
+ */
 interface CalendarState {
+  /** Global list of all calendar events */
   events: CalendarEvent[];
-  configs: Record<string, CalendarConfig>; // campaignId -> config
-  currentDates: Record<string, { day: number; month: number; year: number; time: string }>; // campaignId -> date
+  /** Calendar configurations mapped by campaign ID */
+  configs: Record<string, CalendarConfig>;
+  /** Current date/time state mapped by campaign ID */
+  currentDates: Record<string, { day: number; month: number; year: number; time: string }>;
   
   // Actions
+  /** Adds a new calendar event and returns it */
   addEvent: (event: Omit<CalendarEvent, 'id' | 'entityType' | 'createdAt' | 'updatedAt' | 'campaignId'>) => CalendarEvent;
+  /** Updates an existing event by ID */
   updateEvent: (id: string, updates: Partial<CalendarEvent>) => void;
+  /** Deletes an event by ID */
   deleteEvent: (id: string) => void;
   
+  /** Updates the calendar configuration for a specific campaign */
   updateConfig: (campaignId: string, config: Partial<CalendarConfig>) => void;
+  /** Sets the current in-game date/time for a specific campaign */
   setCurrentDate: (campaignId: string, date: Partial<{ day: number; month: number; year: number; time: string }>) => void;
+  /** Advances the current in-game time by the specified days/hours */
   advanceTime: (campaignId: string, days?: number, hours?: number) => void;
   
+  /** Retrieves all events belonging to a campaign */
   getEventsForCampaign: (campaignId: string) => CalendarEvent[];
+  /** Retrieves the configuration for a campaign (or default) */
   getConfigForCampaign: (campaignId: string) => CalendarConfig;
+  /** Retrieves the current date for a campaign (or default) */
   getCurrentDateForCampaign: (campaignId: string) => { day: number; month: number; year: number; time: string };
+  /** Retrieves all events linked to a specific entity (e.g., character or world entity) */
+  getEventsForEntity: (entityId: string) => CalendarEvent[];
 }
 
 const DEFAULT_CONFIG: CalendarConfig = {
@@ -104,6 +121,7 @@ export const useCalendarStore = create<CalendarState>()(
       getEventsForCampaign: (campaignId) => get().events.filter(e => e.campaignId === campaignId),
       getConfigForCampaign: (campaignId) => get().configs[campaignId] || DEFAULT_CONFIG,
       getCurrentDateForCampaign: (campaignId) => get().currentDates[campaignId] || DEFAULT_DATE,
+      getEventsForEntity: (entityId) => get().events.filter(e => e.linkedEntityId === entityId),
     }),
     { 
       name: 'gmtool_calendar',

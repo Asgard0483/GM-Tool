@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCharacterStore } from '@/features/characters/store/characterStore';
 import { useRelationshipStore } from '@/features/relationships/store/relationshipStore';
 import { useWorldStore } from '@/features/worldbuilding/store/worldStore';
+import { useItemStore } from '@/features/items/store/itemStore';
 import { useToast } from '@/shared/components/atoms/Toast';
 import PageHeader from '@/shared/components/layout/PageHeader';
 import Button from '@/shared/components/atoms/Button';
@@ -10,6 +11,7 @@ import Badge, { characterTypeBadge, characterStatusBadge } from '@/shared/compon
 import RichText from '@/shared/components/atoms/RichText';
 import { useTranslation } from '@/shared/i18n/useTranslation';
 import { formatDate } from '@/shared/utils/helpers';
+import EntityTimeline from '@/shared/components/molecules/EntityTimeline';
 import PrintCharacterSheet from '@/features/export/components/PrintCharacterSheet';
 import PrintLayout from '@/features/export/components/PrintLayout';
 import styles from './CharacterDetailPage.module.css';
@@ -46,9 +48,11 @@ export default function CharacterDetailPage() {
   const getRelationshipsForCharacter = useRelationshipStore(s => s.getRelationshipsForCharacter);
   const characters = useCharacterStore(s => s.characters);
   const worldEntities = useWorldStore(s => s.entities);
+  const items = useItemStore(s => s.entities);
 
   const character = id ? getCharacterById(id) : undefined;
   const relationships = id ? getRelationshipsForCharacter(id) : [];
+  const characterItems = items.filter(i => i.ownerId === id);
 
   if (!character) {
     return (
@@ -185,9 +189,23 @@ export default function CharacterDetailPage() {
           )}
 
           {/* Equipment & Stats */}
-          {(character.equipment || character.skills_stats_notes) && (
+          {(character.equipment || character.skills_stats_notes || characterItems.length > 0) && (
             <Section title={t('characters.equipment')}>
               <div className={styles.fieldStack}>
+                {characterItems.length > 0 && (
+                  <div className={styles.field}>
+                    <div className={styles.fieldLabel}>Inventar / Gegenstände</div>
+                    <div className={styles.fieldValue} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                      {characterItems.map(item => (
+                        <div key={item.id} className={styles.link} onClick={() => navigate(`/items/${item.id}`)} style={{ border: '1px solid var(--color-border)', padding: 'var(--space-2)', display: 'inline-flex', width: 'fit-content' }}>
+                          <Badge variant="default" size="sm">{item.rarity}</Badge>
+                          <span style={{ fontWeight: 500 }}>{item.title}</span>
+                          {item.stats && <span style={{ color: 'var(--color-text-tertiary)', fontSize: 'var(--text-sm)' }}>({item.stats})</span>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <Field label={t('characters.equipment')} value={character.equipment} />
                 <Field label={t('characters.stats')} value={character.skills_stats_notes} />
               </div>
@@ -200,6 +218,13 @@ export default function CharacterDetailPage() {
               <div className={styles.notes}><RichText content={character.notes} /></div>
             </Section>
           )}
+
+          {/* Zeitleiste */}
+          <EntityTimeline 
+            entityId={character.id} 
+            entityType="character" 
+            entityName={character.name} 
+          />
         </div>
 
         {/* Sidebar */}
