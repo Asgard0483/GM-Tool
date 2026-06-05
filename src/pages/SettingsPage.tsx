@@ -44,8 +44,8 @@ export default function SettingsPage() {
     toast(t('settings.saved'), 'success');
   };
 
-  const handleLoadSeed = () => {
-    loadSeedData();
+  const handleLoadSeed = (type: 'fantasy' | 'cthulhu') => {
+    loadSeedData(type);
     toast(`${t('settings.seeded')} (${SEED_STATS.characters} ${t('sidebar.characters')}, ${SEED_STATS.relationships} ${t('dashboard.relationships')}…)`, 'success');
   };
 
@@ -233,12 +233,24 @@ export default function SettingsPage() {
               </div>
               <div className={styles.actionItem}>
                 <div>
-                  <div className={styles.actionTitle}>{t('settings.seedTitle')}</div>
+                  <div className={styles.actionTitle}>Demo: Die Eiserne Krone (Fantasy)</div>
                   <div className={styles.actionDesc}>
                     {t('settings.seedDesc')}
                   </div>
                 </div>
-                <Button variant="secondary" icon={<Database size={15} />} onClick={handleLoadSeed}>
+                <Button variant="secondary" icon={<Database size={15} />} onClick={() => handleLoadSeed('fantasy')}>
+                  {t('common.load')}
+                </Button>
+              </div>
+
+              <div className={styles.actionItem}>
+                <div>
+                  <div className={styles.actionTitle}>Demo: Schatten über Arkham (Cthulhu)</div>
+                  <div className={styles.actionDesc}>
+                    Lädt eine Beispielkampagne im 1920er Lovecraft-Setting.
+                  </div>
+                </div>
+                <Button variant="secondary" icon={<Database size={15} />} onClick={() => handleLoadSeed('cthulhu')}>
                   {t('common.load')}
                 </Button>
               </div>
@@ -300,7 +312,7 @@ export default function SettingsPage() {
           <h2 className={styles.sectionTitle}>{t('settings.about')}</h2>
           <div className={styles.card}>
             <div className={styles.about}>
-              <div className={styles.aboutRow}><span>Version</span><span>1.0.0</span></div>
+              <div className={styles.aboutRow}><span>Version</span><span>1.2.0</span></div>
               <div className={styles.aboutRow}><span>Tech-Stack</span><span>React 19 · Vite · TypeScript · Zustand · React Flow</span></div>
             </div>
           </div>

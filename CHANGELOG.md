@@ -2,6 +2,14 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
+## [1.3.0] - 2026-06-05 (Premium UI & Content Update)
+### Hinzugefügt
+- **Premium UI/UX Overhaul:** Komplettes Redesign mit Glassmorphismus, fließenden CSS-Animationen, taktilen Klick-Feedbacks und einer schwebenden Sidebar.
+- **Image Lightbox:** Bilder von Charakteren, Gegenständen und Orten können nun per Klick vergrößert betrachtet werden.
+- **Neue Demo-Kampagnen:** "Cthulhu Demo" (1920er Jahre Noir/Horror) und umfangreiche Erweiterung der bestehenden Fantasy-Kampagne mit generierten Assets (Portraits, Karten, Gegenstände).
+- **Seed-Data Automatisierung:** Automatische Kalender-Einträge für Events in Demo-Kampagnen generiert.
+- **Optimierung:** Kleinere Bugfixes, Anpassungen im Dark Mode und Lokalisierungs-Verbesserungen (Umbenennung von Sidebar-Tabs).
+
 ## [1.0.0] - 2026-04-19 (Gold Release)
 ### Hinzugefügt
 - **Dedizierte Datenbank (IndexedDB):** Umstellung von LocalStorage auf IndexedDB für unbegrenzten Speicherplatz und höhere Datensicherheit.

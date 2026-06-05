@@ -7,10 +7,13 @@
   font-family: inherit;
   font-weight: var(--font-medium);
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast),
-              box-shadow var(--transition-fast), opacity var(--transition-fast);
+  transition: all var(--transition-fast);
   white-space: nowrap;
   user-select: none;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -22,10 +25,14 @@
 
 /* Variants */
 .primary {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
   color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
-.primary:hover:not(:disabled) { background: var(--color-accent-hover); }
+.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--color-accent-hover), var(--color-accent));
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+}
 
 .secondary {
   background: var(--color-bg-muted);

@@ -74,7 +74,7 @@ body {
 }
 
 [data-theme="dark"] body {
-  background: linear-gradient(-45deg, #111110, #1e1b4b, #2e1065, #111110);
+  background: linear-gradient(-45deg, #09090b, #17172b, #1f113d, #09090b);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
 }

@@ -65,8 +65,8 @@ export default function DashboardPage() {
 
   const isEmpty = campaignChars.length === 0 && campaignWorld.length === 0 && campaignGameplay.length === 0;
 
-  const handleLoadSeed = () => {
-    loadSeedData();
+  const handleLoadSeed = (type: 'fantasy' | 'cthulhu') => {
+    loadSeedData(type);
     const message = t('dashboard.seedStats')
       .replace('{{chars}}', SEED_STATS.characters.toString())
       .replace('{{rels}}', SEED_STATS.relationships.toString())
@@ -101,8 +101,11 @@ export default function DashboardPage() {
           <Button variant="primary" icon={<Plus size={16} />} onClick={() => navigate('/characters/new')}>
             {t('dashboard.newCharacter')}
           </Button>
-          <Button variant="secondary" icon={<Database size={16} />} onClick={handleLoadSeed}>
-            {t('dashboard.loadSeed')}
+          <Button variant="secondary" icon={<Database size={16} />} onClick={() => handleLoadSeed('fantasy')}>
+            Fantasy Demo
+          </Button>
+          <Button variant="secondary" icon={<Database size={16} />} onClick={() => handleLoadSeed('cthulhu')}>
+            Cthulhu Demo
           </Button>
           {!isEmpty && (
             <Button variant="ghost" icon={<Trash2 size={16} />} onClick={handleClear}>
@@ -158,8 +161,11 @@ export default function DashboardPage() {
               {t('dashboard.emptyDesc')}
             </p>
             <div className={styles.emptyActions}>
-              <Button variant="primary" size="lg" icon={<Database size={18} />} onClick={handleLoadSeed}>
+              <Button variant="primary" size="lg" icon={<Database size={18} />} onClick={() => handleLoadSeed('fantasy')}>
                 {t('dashboard.loadFirst')}
+              </Button>
+              <Button variant="primary" size="lg" icon={<Database size={18} />} onClick={() => handleLoadSeed('cthulhu')}>
+                Cthulhu Demo laden
               </Button>
               <Button variant="secondary" size="lg" icon={<Plus size={18} />} onClick={() => navigate('/characters/new')}>
                 {t('dashboard.createFirst')}

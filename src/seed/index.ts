@@ -14,7 +14,15 @@ import { seedStories } from './story.seed';
 import { seedItems } from './items.seed';
 import { seedEvents } from './calendar.seed';
 
-export function loadSeedData() {
+import { cthulhuCharacters } from './cthulhu-characters.seed';
+import { cthulhuWorldEntities } from './cthulhu-worldbuilding.seed';
+import { cthulhuGameplayEntities } from './cthulhu-gameplay.seed';
+import { cthulhuStories } from './cthulhu-story.seed';
+import { cthulhuRelationships } from './cthulhu-relationships.seed';
+import { cthulhuItems } from './cthulhu-items.seed';
+import { cthulhuEvents, cthulhuCalendarConfig } from './cthulhu-calendar.seed';
+
+export function loadSeedData(type: 'fantasy' | 'cthulhu' = 'fantasy') {
   const characterStore = useCharacterStore.getState();
   const relationshipStore = useRelationshipStore.getState();
   const worldStore = useWorldStore.getState();
@@ -23,32 +31,34 @@ export function loadSeedData() {
   const itemStore = useItemStore.getState();
   const calendarStore = useCalendarStore.getState();
 
-  const campaignId = useCampaignStore.getState().activeCampaignId;
+  const campaignId = useCampaignStore.getState().activeCampaignId || 'default';
 
-  // Note: Stores will automatically persist to IndexedDB via Zustand
-  // We don't manually clear storage here to avoid direct DB coupling.
-  // Instead, the stores are updated below.
-
-  // Load seed characters (bypass addCharacter to preserve IDs)
-  useCharacterStore.setState({ 
-    characters: seedCharacters.map(c => ({ ...c, campaignId: campaignId || '' })) 
-  });
-  useRelationshipStore.setState({ 
-    relationships: seedRelationships.map(r => ({ ...r, campaignId: campaignId || '' })) 
-  });
-  useWorldStore.setState({ 
-    entities: seedWorldEntities.map(w => ({ ...w, campaignId: campaignId || '' })) 
-  });
-  useGameplayStore.setState({ 
-    entities: seedGameplayEntities.map(g => ({ ...g, campaignId: campaignId || '' })) 
-  });
-  useStoryStore.setState({
-    entities: seedStories.map(s => ({ ...s, campaignId: campaignId || '' }))
-  });
-  useCalendarStore.setState({
-    events: seedEvents.map(e => ({ ...e, campaignId: campaignId || '' }))
-  });
-  seedItems(campaignId || '');
+  if (type === 'fantasy') {
+    useCharacterStore.setState({ characters: seedCharacters.map(c => ({ ...c, campaignId })) });
+    useRelationshipStore.setState({ relationships: seedRelationships.map(r => ({ ...r, campaignId })) });
+    useWorldStore.setState({ entities: seedWorldEntities.map(w => ({ ...w, campaignId })) });
+    useGameplayStore.setState({ entities: seedGameplayEntities.map(g => ({ ...g, campaignId })) });
+    useStoryStore.setState({ entities: seedStories.map(s => ({ ...s, campaignId })) });
+    useCalendarStore.setState({ events: seedEvents.map(e => ({ ...e, campaignId })) });
+    seedItems(campaignId);
+  } else if (type === 'cthulhu') {
+    useCharacterStore.setState({ characters: cthulhuCharacters.map(c => ({ ...c, campaignId })) });
+    useRelationshipStore.setState({ relationships: cthulhuRelationships.map(r => ({ ...r, campaignId })) });
+    useWorldStore.setState({ entities: cthulhuWorldEntities.map(w => ({ ...w, campaignId })) });
+    useGameplayStore.setState({ entities: cthulhuGameplayEntities.map(g => ({ ...g, campaignId })) });
+    useStoryStore.setState({ entities: cthulhuStories.map(s => ({ ...s, campaignId })) });
+    useCalendarStore.setState({ events: cthulhuEvents.map(e => ({ ...e, campaignId })) });
+    useItemStore.setState({ entities: cthulhuItems.map(i => ({ ...i, campaignId })) });
+    
+    // Set custom Cthulhu calendar config
+    const currentConfigs = calendarStore.configs;
+    useCalendarStore.setState({
+      configs: {
+        ...currentConfigs,
+        [campaignId]: cthulhuCalendarConfig
+      }
+    });
+  }
 
   // Silence unused variable warnings
   void characterStore;

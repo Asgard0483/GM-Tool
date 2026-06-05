@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Trash2, Edit2, Copy } from 'lucide-react';
 import { useWorldStore } from '@/features/worldbuilding/store/worldStore';
@@ -10,6 +11,7 @@ import RichText from '@/shared/components/atoms/RichText';
 import { useTranslation } from '@/shared/i18n/useTranslation';
 import { formatDate } from '@/shared/utils/helpers';
 import EntityTimeline from '@/shared/components/molecules/EntityTimeline';
+import ImageLightbox from '@/shared/components/atoms/ImageLightbox';
 import styles from './WorldEntityDetailPage.module.css';
 
 // Removed CAT_LABELS and STATUS_LABELS in favor of standard translations
@@ -23,6 +25,7 @@ export default function WorldEntityDetailPage() {
   const duplicateEntity = useWorldStore(s => s.duplicateEntity);
   const characters = useCharacterStore(s => s.characters);
   const { t } = useTranslation();
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const entity = id ? getEntityById(id) : undefined;
   const worldEntities = useWorldStore(s => s.entities);
@@ -78,7 +81,19 @@ export default function WorldEntityDetailPage() {
         <div className={styles.main}>
           {entity.imageUrl && (
             <div className={styles.imageHeader}>
-              <img src={entity.imageUrl} alt={entity.title} className={styles.mapImage} />
+              <img 
+                src={entity.imageUrl} 
+                alt={entity.title} 
+                className={styles.mapImage} 
+                style={{ cursor: 'zoom-in' }}
+                onClick={() => setIsLightboxOpen(true)}
+              />
+              <ImageLightbox 
+                src={entity.imageUrl} 
+                alt={entity.title} 
+                open={isLightboxOpen} 
+                onClose={() => setIsLightboxOpen(false)} 
+              />
             </div>
           )}
           {entity.summary && (

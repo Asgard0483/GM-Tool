@@ -1,0 +1,43 @@
+import type { GameplayEntity } from '@/shared/types';
+
+export const cthulhuGameplayEntities: GameplayEntity[] = [
+  {
+    id: 'cth-game-001', entityType: 'quest',
+    title: 'Wo ist Professor Armitage?',
+    summary: 'Finde heraus, was mit dem Bibliothekar passiert ist.',
+    description: 'Armitage wurde zuletzt gesehen, als er abends spät noch im Orne-Archiv arbeitete. Am nächsten Morgen war er verschwunden. Keine Einbruchsspuren, aber ein zerrissenes lateinisches Buch lag auf seinem Schreibtisch.',
+    status: 'active',
+    related_character_ids: ['cth-char-002'],
+    related_faction_ids: [],
+    related_place_ids: ['cth-world-002'],
+    consequences: 'Armitage könnte sterben.',
+    related_reward_ids: [],
+    related_scene_ids: [],
+    goal: 'Den Professor finden.',
+    giver: 'Margaret Finch',
+    tags: ['quest', 'ermittlung'],
+    notes: '',
+    metadata: {}, createdAt: '1925-09-01T14:00:00Z', updatedAt: '1925-09-05T16:00:00Z', campaignId: 'cthulhu',
+  },
+  {
+    id: 'cth-game-002', entityType: 'scene',
+    title: 'Der Einbruch ins Manor',
+    summary: 'Die Ermittler schleichen sich nachts in Blackwood Manor ein.',
+    description: 'Sie müssen die Wachen umgehen, ein Fenster im Erdgeschoss knacken und den Zugang zum Keller finden, ohne Alarm auszulösen.',
+    status: 'open',
+    related_character_ids: ['cth-char-001', 'cth-char-003'],
+    related_faction_ids: ['cth-world-004'],
+    related_place_ids: ['cth-world-003'],
+    consequences: 'Gefahr durch Kultisten und Monster.',
+    related_reward_ids: [],
+    related_scene_ids: [],
+    place_id: 'cth-world-003',
+    scene_goal: 'Eindringen ohne entdeckt zu werden',
+    conflict_type: 'Stealth / Kampf',
+    participants: 'Ermittler, Kult-Wachen',
+    possible_twist: 'Das Ding im Keller bricht aus.',
+    tags: ['szene', 'stealth'],
+    notes: '',
+    metadata: {}, createdAt: '1925-09-01T15:00:00Z', updatedAt: '1925-09-05T17:00:00Z', campaignId: 'cthulhu',
+  }
+];

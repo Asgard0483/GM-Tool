@@ -234,6 +234,7 @@ export interface ItemEntity extends BaseEntity {
   description: string;
   background: string;
   ownerId?: string; // ID of the character who owns it
+  imageUrl?: string;
 }
 
 // ============================================================

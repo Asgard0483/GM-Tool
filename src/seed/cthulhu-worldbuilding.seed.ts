@@ -1,0 +1,50 @@
+import type { WorldEntity } from '@/shared/types';
+
+export const cthulhuWorldEntities: WorldEntity[] = [
+  {
+    id: 'cth-world-001', entityType: 'place',
+    title: 'Arkham', category: 'place',
+    status: 'active',
+    summary: 'Eine düstere Stadt in Massachusetts, geplagt von Nebel, alten Geheimnissen und dem ständigen Gefühl, beobachtet zu werden.',
+    description: 'Arkham ist berühmt für die Miskatonic University und die vielen dunklen Legenden, die sich um die alten Kolonialhäuser ranken. Hexenprozesse, seltsame Kulte und unerklärliche Vorkommnisse gehören zur Stadtgeschichte. Der Miskatonic River schlängelt sich wie eine schwarze Schlange durch das Stadtzentrum.',
+    notes: 'Nachts sind die Straßen von Arkham nicht sicher. Die Polizei ist chronisch unterbesetzt und teilweise korrupt.',
+    tags: ['stadt', 'neuengland', 'lovecraft-country'],
+    region_id: '', faction_id: '', related_character_ids: [], related_gameplay_ids: [], historical_references: [],
+    imageUrl: '/images/arkham_map.png',
+    metadata: {}, createdAt: '1925-09-01T08:00:00Z', updatedAt: '1925-09-05T10:00:00Z', campaignId: 'cthulhu',
+  },
+  {
+    id: 'cth-world-002', entityType: 'place',
+    title: 'Miskatonic University Library', category: 'place',
+    status: 'active',
+    summary: 'Die gewaltige Universitätsbibliothek, die eine der größten Sammlungen an okkulten Schriften der Welt beherbergt.',
+    description: 'Ein Labyrinth aus Bücherregalen, Eichenholzschreibtischen und schummrigen Leselampen. Der öffentliche Bereich ist für Studenten zugänglich, doch das Orne-Archiv im gesperrten Bereich enthält Folianten, die den Verstand eines normalen Menschen zerschmettern könnten.',
+    notes: 'Margaret Finch hat den Schlüssel zum Restricted Section. Ohne sie oder einen extrem hohen Bibliotheksnutzung-Wurf kommen die Spieler nicht an die Mythos-Bücher.',
+    tags: ['bibliothek', 'wissen', 'miskatonic'],
+    region_id: 'cth-world-001', faction_id: '', related_character_ids: ['cth-char-002'], related_gameplay_ids: [], historical_references: [],
+    metadata: {}, createdAt: '1925-09-01T09:00:00Z', updatedAt: '1925-09-05T11:00:00Z', campaignId: 'cthulhu',
+  },
+  {
+    id: 'cth-world-003', entityType: 'place',
+    title: 'Blackwood Manor', category: 'place',
+    status: 'active',
+    summary: 'Das abgeschiedene Anwesen von Silas Thorne. Ein massiver viktorianischer Bau, der bedrohlich auf einer Klippe thront.',
+    description: 'Das Herrenhaus war jahrzehntelang verlassen, bevor Thorne es kaufte und renovierte. Die Fenster sind meist verdunkelt, und seltsame Lieferungen treffen mitten in der Nacht ein. Im Keller soll es ein Netzwerk aus alten Schmugglertunneln geben.',
+    notes: 'Das Hauptquartier des Kultes. Im Keller befindet sich der Beschwörungskreis und das "Ding im Keller".',
+    tags: ['versteck', 'kult', 'gefährlich'],
+    region_id: 'cth-world-001', faction_id: 'cth-world-004', related_character_ids: ['cth-char-003', 'cth-char-004'], related_gameplay_ids: [], historical_references: [],
+    imageUrl: '/images/blackwood_manor.png',
+    metadata: {}, createdAt: '1925-09-01T10:00:00Z', updatedAt: '1925-09-05T12:00:00Z', campaignId: 'cthulhu',
+  },
+  {
+    id: 'cth-world-004', entityType: 'faction',
+    title: 'Kult des Schwarzen Pharao', category: 'faction',
+    status: 'active',
+    summary: 'Ein globaler Geheimkult, der eine Avatar-Form von Nyarlathotep verehrt. In Arkham von Silas Thorne angeführt.',
+    description: 'Der Kult rekrutiert Mitglieder aus der Oberschicht, denen Macht und Unsterblichkeit versprochen wird. Sie nutzen alte ägyptische Artefakte und grausame Blutrituale, um mit Entitäten jenseits des Verstandes zu kommunizieren.',
+    notes: 'Erkennungsmerkmal ist ein tätowiertes umgedrehtes Ankh auf der inneren Handfläche. Sie haben die Polizei unterwandert.',
+    tags: ['kult', 'antagonisten', 'mythos'],
+    region_id: 'cth-world-001', faction_id: '', related_character_ids: ['cth-char-003'], related_gameplay_ids: [], historical_references: [],
+    metadata: {}, createdAt: '1925-09-01T11:00:00Z', updatedAt: '1925-09-05T13:00:00Z', campaignId: 'cthulhu',
+  }
+];

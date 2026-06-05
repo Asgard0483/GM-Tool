@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { ArrowLeft, Edit2, Trash2, Copy, Network, Eye, EyeOff, Lock, Printer } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCharacterStore } from '@/features/characters/store/characterStore';
@@ -14,6 +15,7 @@ import { formatDate } from '@/shared/utils/helpers';
 import EntityTimeline from '@/shared/components/molecules/EntityTimeline';
 import PrintCharacterSheet from '@/features/export/components/PrintCharacterSheet';
 import PrintLayout from '@/features/export/components/PrintLayout';
+import ImageLightbox from '@/shared/components/atoms/ImageLightbox';
 import styles from './CharacterDetailPage.module.css';
 
 const VIS_ICONS: Record<string, typeof Eye> = { public: Eye, gm_only: EyeOff, secret: Lock };
@@ -49,6 +51,7 @@ export default function CharacterDetailPage() {
   const characters = useCharacterStore(s => s.characters);
   const worldEntities = useWorldStore(s => s.entities);
   const items = useItemStore(s => s.entities);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const character = id ? getCharacterById(id) : undefined;
   const relationships = id ? getRelationshipsForCharacter(id) : [];
@@ -127,7 +130,19 @@ export default function CharacterDetailPage() {
           {/* Portrait */}
           {character.portraitUrl && (
             <div className={styles.portraitSection}>
-              <img src={character.portraitUrl} alt={character.name} className={styles.portrait} />
+              <img 
+                src={character.portraitUrl} 
+                alt={character.name} 
+                className={styles.portrait} 
+                style={{ cursor: 'zoom-in' }}
+                onClick={() => setIsLightboxOpen(true)}
+              />
+              <ImageLightbox 
+                src={character.portraitUrl} 
+                alt={character.name} 
+                open={isLightboxOpen} 
+                onClose={() => setIsLightboxOpen(false)} 
+              />
             </div>
           )}
 

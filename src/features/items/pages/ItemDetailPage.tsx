@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Trash2, Edit2, Copy, User } from 'lucide-react';
 import { useItemStore } from '../store/itemStore';
@@ -8,6 +9,7 @@ import Button from '@/shared/components/atoms/Button';
 import Badge from '@/shared/components/atoms/Badge';
 import RichText from '@/shared/components/atoms/RichText';
 import { formatDate } from '@/shared/utils/helpers';
+import ImageLightbox from '@/shared/components/atoms/ImageLightbox';
 import styles from './ItemDetailPage.module.css';
 
 const RARITY_VARIANTS: Record<string, 'default'|'info'|'success'|'warning'|'accent'|'danger'|'muted'> = {
@@ -23,6 +25,7 @@ export default function ItemDetailPage() {
   const deleteEntity = useItemStore(s => s.deleteEntity);
   const duplicateEntity = useItemStore(s => s.duplicateEntity);
   const getCharacterById = useCharacterStore(s => s.getCharacterById);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const entity = id ? getEntityById(id) : undefined;
   const owner = entity?.ownerId ? getCharacterById(entity.ownerId) : null;
@@ -93,6 +96,24 @@ export default function ItemDetailPage() {
         </div>
 
         <div className={styles.sidebar}>
+          {entity.imageUrl && (
+            <div className={styles.sideSection}>
+              <img 
+                src={entity.imageUrl} 
+                alt={entity.title} 
+                className={styles.entityImage} 
+                style={{ width: '100%', borderRadius: 'var(--radius-md)', objectFit: 'cover', cursor: 'zoom-in' }} 
+                onClick={() => setIsLightboxOpen(true)}
+              />
+              <ImageLightbox 
+                src={entity.imageUrl} 
+                alt={entity.title} 
+                open={isLightboxOpen} 
+                onClose={() => setIsLightboxOpen(false)} 
+              />
+            </div>
+          )}
+
           {owner && (
             <div className={styles.sideSection}>
               <div className={styles.sideSectionTitle}>Besitzer</div>
