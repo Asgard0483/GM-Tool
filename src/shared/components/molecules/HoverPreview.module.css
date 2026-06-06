@@ -1,0 +1,105 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--space-2);
+  width: 300px;
+  background: var(--color-bg-elevated);
+  backdrop-filter: var(--blur-xl);
+  -webkit-backdrop-filter: var(--blur-xl);
+  border: 1px solid var(--color-border-glass);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  z-index: 1000;
+  padding: var(--space-3);
+  display: flex;
+  gap: var(--space-3);
+  animation: popIn var(--transition-fast);
+  cursor: default;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+/* Kleiner Pfeil nach unten */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--color-border-glass) transparent transparent transparent;
+}
+
+.image {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-bg-muted);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+}
+
+.icon {
+  color: var(--color-text-tertiary);
+  display: flex;
+}
+
+.title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-snug);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tags {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  margin-top: var(--space-1);
+}
+
+.tag {
+  font-size: 0.65rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+}
+
+@keyframes popIn {
+  0% { opacity: 0; transform: translate(-50%, 4px) scale(0.95); }
+  100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}

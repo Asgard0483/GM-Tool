@@ -2,8 +2,13 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
-## [1.3.0] - 2026-06-05 (Premium UI & Content Update)
+## [1.4.0] - 2026-06-06 (Smart Editing & Previews)
 ### Hinzugefügt
+- **Mitdenkende Autocomplete-Vorschläge:** Automatische Vorschlagsliste beim Schreiben von Texten. Erkennt Kampagnen-Entitäten schon ab 3 getippten Buchstaben und erlaubt blitzschnelles Einfügen.
+- **Hover-Karten (Previews):** Fährt man mit der Maus über einen verlinkten Namen im Text, öffnet sich eine elegante kleine Vorschau-Karte im Glassmorphism-Design mit Bild, Kurzbeschreibung und Tags.
+- **Dropdown-Design:** Premium-Design für Auswahlmenüs mit Typ-Badges, Akzentrahmen und verbesserter Typografie.
+
+## [1.3.0] - 2026-06-05 (Premium UI & Content Update)
 - **Premium UI/UX Overhaul:** Komplettes Redesign mit Glassmorphismus, fließenden CSS-Animationen, taktilen Klick-Feedbacks und einer schwebenden Sidebar.
 - **Image Lightbox:** Bilder von Charakteren, Gegenständen und Orten können nun per Klick vergrößert betrachtet werden.
 - **Neue Demo-Kampagnen:** "Cthulhu Demo" (1920er Jahre Noir/Horror) und umfangreiche Erweiterung der bestehenden Fantasy-Kampagne mit generierten Assets (Portraits, Karten, Gegenstände).

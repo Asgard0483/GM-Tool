@@ -1,9 +1,12 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Globe, Swords } from 'lucide-react';
+import { Swords, Users, Globe, Package } from 'lucide-react';
 import { useCharacterStore } from '@/features/characters/store/characterStore';
 import { useWorldStore } from '@/features/worldbuilding/store/worldStore';
 import { useGameplayStore } from '@/features/gameplay/store/gameplayStore';
+import { useItemStore } from '@/features/items/store/itemStore';
+import HoverPreview from '../molecules/HoverPreview';
+import type { EntityPreviewData } from '../molecules/HoverPreview';
 import styles from './RichText.module.css';
 
 interface RichTextProps {
@@ -18,6 +21,7 @@ export default function RichText({ content }: RichTextProps) {
   const characters = useCharacterStore(s => s.characters);
   const worldEntities = useWorldStore(s => s.entities);
   const gameplayEntities = useGameplayStore(s => s.entities);
+  const items = useItemStore(s => s.entities);
 
   // Build a lookup map of all valid entities, lowercased, length > 2
   const entityMap = useMemo(() => {
@@ -25,22 +29,47 @@ export default function RichText({ content }: RichTextProps) {
     
     characters.forEach(c => {
       if (c.name.trim().length > 2) {
-        map.set(c.name.trim().toLowerCase(), { type: 'character', route: `/characters/${c.id}`, icon: <Users size={12} /> });
+        map.set(c.name.trim().toLowerCase(), { 
+          type: 'character', 
+          route: `/characters/${c.id}`, 
+          icon: <Users size={12} />,
+          preview: { title: c.name, icon: <Users size={14} />, imageUrl: c.portraitUrl, description: c.short_description, tags: c.tags }
+        });
       }
     });
     worldEntities.forEach(w => {
       if (w.title.trim().length > 2) {
-        map.set(w.title.trim().toLowerCase(), { type: 'world', route: `/worldbuilding/${w.id}`, icon: <Globe size={12} /> });
+        map.set(w.title.trim().toLowerCase(), { 
+          type: 'world', 
+          route: `/worldbuilding/${w.id}`, 
+          icon: <Globe size={12} />,
+          preview: { title: w.title, icon: <Globe size={14} />, imageUrl: w.imageUrl, description: w.summary, tags: w.tags }
+        });
       }
     });
     gameplayEntities.forEach(g => {
       if (g.title.trim().length > 2) {
-        map.set(g.title.trim().toLowerCase(), { type: 'gameplay', route: `/gameplay/${g.id}`, icon: <Swords size={12} /> });
+        map.set(g.title.trim().toLowerCase(), { 
+          type: 'gameplay', 
+          route: `/gameplay/${g.id}`, 
+          icon: <Swords size={12} />,
+          preview: { title: g.title, icon: <Swords size={14} />, description: g.summary }
+        });
+      }
+    });
+    items.forEach(i => {
+      if (i.title.trim().length > 2) {
+        map.set(i.title.trim().toLowerCase(), {
+          type: 'item',
+          route: `/items/${i.id}`,
+          icon: <Package size={12} />,
+          preview: { title: i.title, icon: <Package size={14} />, imageUrl: i.imageUrl, description: i.description, tags: i.tags }
+        });
       }
     });
     
     return map;
-  }, [characters, worldEntities, gameplayEntities]);
+  }, [characters, worldEntities, gameplayEntities, items]);
 
   // Build the unified regex for auto-highlighting
   const autoRegex = useMemo(() => {
@@ -68,10 +97,12 @@ export default function RichText({ content }: RichTextProps) {
           
           if (match) {
             return (
-              <Link key={`exp-${i}`} to={match.route} className={`${styles.link} ${styles[match.type]}`}>
-                <span className={styles.icon}>{match.icon}</span>
-                {innerName}
-              </Link>
+              <HoverPreview key={`exp-${i}`} entity={match.preview}>
+                <Link to={match.route} className={`${styles.link} ${styles[match.type]}`}>
+                  <span className={styles.icon}>{match.icon}</span>
+                  {innerName}
+                </Link>
+              </HoverPreview>
             );
           }
           return <span key={`exp-${i}`} className={styles.brokenLink}>{innerName}</span>;
@@ -88,9 +119,11 @@ export default function RichText({ content }: RichTextProps) {
                   const match = entityMap.get(part.toLowerCase());
                   if (match) {
                     return (
-                      <Link key={`auto-${i}-${j}`} to={match.route} className={`${styles.link} ${styles[match.type]}`}>
-                        {part}
-                      </Link>
+                      <HoverPreview key={`auto-${i}-${j}`} entity={match.preview}>
+                        <Link to={match.route} className={`${styles.link} ${styles[match.type]}`}>
+                          {part}
+                        </Link>
+                      </HoverPreview>
                     );
                   }
                 }

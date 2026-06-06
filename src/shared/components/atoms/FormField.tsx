@@ -1,3 +1,4 @@
+import React, { forwardRef } from 'react';
 import type { InputHTMLAttributes, TextareaHTMLAttributes, SelectHTMLAttributes, ReactNode } from 'react';
 import styles from './FormField.module.css';
 
@@ -29,11 +30,17 @@ export function Input({ className = '', ...rest }: InputHTMLAttributes<HTMLInput
   return <input className={`${styles.input} ${className}`} {...rest} />;
 }
 
-/* ---- Textarea ---- */
-type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & { rows?: number };
-export function Textarea({ className = '', rows = 3, ...rest }: TextareaProps) {
-  return <textarea className={`${styles.textarea} ${className}`} rows={rows} {...rest} />;
-}
+/* ---- Basic Textarea ---- */
+export type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & { rows?: number };
+export const BaseTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ className = '', rows = 3, ...rest }, ref) => {
+    return <textarea ref={ref} className={`${styles.textarea} ${className}`} rows={rows} {...rest} />;
+  }
+);
+BaseTextarea.displayName = 'BaseTextarea';
+
+/* ---- Smart Textarea with Mentions ---- */
+export { MentionTextarea as Textarea } from '../molecules/MentionTextarea';
 
 /* ---- Select ---- */
 export function Select({ className = '', children, ...rest }: SelectHTMLAttributes<HTMLSelectElement> & { children: ReactNode }) {
@@ -43,3 +50,5 @@ export function Select({ className = '', children, ...rest }: SelectHTMLAttribut
     </select>
   );
 }
+
+
