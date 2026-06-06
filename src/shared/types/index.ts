@@ -199,6 +199,7 @@ export interface GameplayEntity extends BaseEntity {
   possible_outcomes?: string;
   // Session Log
   session_number?: number;
+  inGameDate?: { day: number; month: number; year: number };
   session_date?: string;
   open_threads?: string;
   new_hooks?: string;
@@ -218,6 +219,7 @@ export interface StoryEntity extends BaseEntity {
   chapter_number: number;
   status: StoryStatus;
   summary: string;
+  inGameDate?: { day: number; month: number; year: number };
 }
 
 // ============================================================
@@ -265,7 +267,7 @@ export interface MapEntity extends BaseEntity {
 // ============================================================
 
 export interface AppSettings {
-  theme: 'light' | 'dark';
+  theme: 'modern-light' | 'modern-dark' | 'fantasy-light' | 'fantasy-dark' | 'scifi-dark' | 'cyberpunk-dark';
   language: 'de' | 'en';
   defaultView: 'list' | 'grid';
   campaignName: string;

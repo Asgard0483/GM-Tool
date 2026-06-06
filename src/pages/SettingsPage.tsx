@@ -82,7 +82,7 @@ export default function SettingsPage() {
   const handlePurgeLegacy = () => {
     if (!confirm('Dies löscht alle alten Daten aus dem LocalStorage. Die Daten in der neuen Datenbank (IndexedDB) bleiben erhalten. Fortfahren?')) return;
     
-    ['gmtool_characters', 'gmtool_relationships', 'gmtool_worldbuilding', 'gmtool_gameplay', 'gmtool_settings', 'gmtool_campaigns', 'gmtool_maps', 'gmtool_calendar', 'gmtool_dice', 'gmtool_story'].forEach(key => {
+    ['gmtool_characters', 'gmtool_relationships', 'gmtool_worldbuilding', 'gmtool_gameplay', 'gmtool_settings', 'gmtool_campaigns', 'gmtool_maps', 'gmtool_calendar', 'gmtool_dice', 'gmtool_story', 'gmtool_audio'].forEach(key => {
         localStorage.removeItem(key);
     });
     
@@ -151,23 +151,64 @@ export default function SettingsPage() {
           <div className={styles.card}>
             <div className={styles.themeRow}>
               <div>
-                <div className={styles.fieldLabel}>{t('settings.appearance')}</div>
+                <div className={styles.fieldLabel}>Genre (Theme)</div>
               </div>
-              <div className={styles.themeToggleGroup}>
-                <button
-                  className={`${styles.themeOption} ${settings.theme === 'light' ? styles.themeOptionActive : ''}`}
-                  onClick={() => setTheme('light')}
-                >
-                  <Sun size={16} /> {t('settings.lightTheme')}
-                </button>
-                <button
-                  className={`${styles.themeOption} ${settings.theme === 'dark' ? styles.themeOptionActive : ''}`}
-                  onClick={() => setTheme('dark')}
-                >
-                  <Moon size={16} /> {t('settings.darkTheme')}
-                </button>
+              <div className={styles.themeToggleGroup} style={{ flexWrap: 'wrap' }}>
+                {[
+                  { id: 'modern', label: 'Gegenwart' },
+                  { id: 'fantasy', label: 'Fantasy' },
+                  { id: 'scifi', label: 'Sci-Fi' },
+                  { id: 'cyberpunk', label: 'Cyberpunk' }
+                ].map(genre => {
+                  const currentGenre = settings.theme.split('-')[0];
+                  return (
+                    <button
+                      key={genre.id}
+                      className={`${styles.themeOption} ${currentGenre === genre.id ? styles.themeOptionActive : ''}`}
+                      onClick={() => {
+                        if (genre.id === 'scifi' || genre.id === 'cyberpunk') {
+                          setTheme(`${genre.id}-dark` as any);
+                        } else {
+                          const mode = settings.theme.includes('light') ? 'light' : 'dark';
+                          setTheme(`${genre.id}-${mode}` as any);
+                        }
+                      }}
+                    >
+                      {genre.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
+
+            {/* Mode Switch (only for Modern/Fantasy) */}
+            {(!settings.theme.startsWith('scifi') && !settings.theme.startsWith('cyberpunk')) && (
+              <div className={styles.themeRow}>
+                <div>
+                  <div className={styles.fieldLabel}>Modus</div>
+                </div>
+                <div className={styles.themeToggleGroup}>
+                  <button
+                    className={`${styles.themeOption} ${settings.theme.includes('light') ? styles.themeOptionActive : ''}`}
+                    onClick={() => {
+                      const genre = settings.theme.split('-')[0];
+                      setTheme(`${genre}-light` as any);
+                    }}
+                  >
+                    <Sun size={16} /> Hell
+                  </button>
+                  <button
+                    className={`${styles.themeOption} ${settings.theme.includes('dark') ? styles.themeOptionActive : ''}`}
+                    onClick={() => {
+                      const genre = settings.theme.split('-')[0];
+                      setTheme(`${genre}-dark` as any);
+                    }}
+                  >
+                    <Moon size={16} /> Dunkel
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* Language Switch */}
             <div className={styles.themeRow}>
@@ -312,7 +353,7 @@ export default function SettingsPage() {
           <h2 className={styles.sectionTitle}>{t('settings.about')}</h2>
           <div className={styles.card}>
             <div className={styles.about}>
-              <div className={styles.aboutRow}><span>Version</span><span>1.2.0</span></div>
+              <div className={styles.aboutRow}><span>Version</span><span>0.14.0 Alpha</span></div>
               <div className={styles.aboutRow}><span>Tech-Stack</span><span>React 19 · Vite · TypeScript · Zustand · React Flow</span></div>
             </div>
           </div>

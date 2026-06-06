@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Modal from '@/shared/components/atoms/Modal';
 import Button from '@/shared/components/atoms/Button';
 import { FormField, Input, Textarea, Select } from '@/shared/components/atoms/FormField';
 import { useCharacterStore } from '@/features/characters/store/characterStore';
 import { useWorldStore } from '@/features/worldbuilding/store/worldStore';
 import { useCalendarStore } from '@/features/calendar/store/calendarStore';
-import { Trash2 } from 'lucide-react';
+import { useGameplayStore } from '@/features/gameplay/store/gameplayStore';
+import { useStoryStore } from '@/features/story/store/storyStore';
+import { Trash2, ExternalLink } from 'lucide-react';
 import type { CalendarConfig, CalendarEvent, EntityType } from '@/shared/types';
 import { useTranslation } from '@/shared/i18n/useTranslation';
 
@@ -45,9 +48,13 @@ export default function CalendarEventModal({
   fixedLinkedEntityId,
   fixedLinkedEntityType
 }: CalendarEventModalProps) {
+
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const characters = useCharacterStore(s => s.characters);
   const worldEntities = useWorldStore(s => s.entities);
+  const gameplayEntities = useGameplayStore(s => s.entities);
+  const storyEntities = useStoryStore(s => s.entities);
   const deleteEvent = useCalendarStore(s => s.deleteEvent);
 
   const [title, setTitle] = useState('');
@@ -131,10 +138,23 @@ export default function CalendarEventModal({
     // Determine entity type
     if (characters.some(c => c.id === val)) {
       setLinkedEntityType('character');
-    } else {
-      const we = worldEntities.find(e => e.id === val);
-      if (we) setLinkedEntityType(we.entityType);
+    } else if (worldEntities.some(e => e.id === val)) {
+      setLinkedEntityType(worldEntities.find(e => e.id === val)!.entityType);
+    } else if (gameplayEntities.some(e => e.id === val)) {
+      setLinkedEntityType(gameplayEntities.find(e => e.id === val)!.entityType);
+    } else if (storyEntities.some(e => e.id === val)) {
+      setLinkedEntityType('story');
     }
+  };
+
+  /**
+   * Helper to get route for linked entity
+   */
+  const getEntityRoute = (id: string, type: string) => {
+    if (type === 'character') return `/characters/${id}`;
+    if (type === 'gameplay' || ['quest', 'scene', 'encounter', 'reward', 'session_log', 'mechanic'].includes(type)) return `/gameplay/${id}`;
+    if (type === 'story' || type === 'story_arc' || type === 'story_beat') return `/story/${id}`;
+    return `/worldbuilding/${id}`;
   };
 
   /**
@@ -204,12 +224,38 @@ export default function CalendarEventModal({
                 <option key={c.id} value={c.id}>{c.name}</option>
               ))}
             </optgroup>
+            <optgroup label="Gameplay (Quests, Sessions)">
+              {gameplayEntities.map(e => (
+                <option key={e.id} value={e.id}>{e.title}</option>
+              ))}
+            </optgroup>
+            <optgroup label="Story">
+              {storyEntities.map(e => (
+                <option key={e.id} value={e.id}>{e.title}</option>
+              ))}
+            </optgroup>
             <optgroup label="Weltbau">
               {worldEntities.map(e => (
                 <option key={e.id} value={e.id}>{e.title}</option>
               ))}
             </optgroup>
           </Select>
+          {linkedEntityId && linkedEntityType && (
+            <div style={{ marginTop: '0.5rem' }}>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                icon={<ExternalLink size={14} />} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(getEntityRoute(linkedEntityId, linkedEntityType));
+                  onClose();
+                }}
+              >
+                Gehe zu verknüpftem Eintrag
+              </Button>
+            </div>
+          )}
         </FormField>
 
         <FormField label={t('common.description')}>

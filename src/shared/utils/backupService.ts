@@ -15,6 +15,7 @@ const STORAGE_KEYS = [
   'gmtool_story',
   'gmtool_calendar',
   'gmtool_dice',
+  'gmtool_audio',
   'gmtool_settings'
 ];
 
@@ -66,13 +67,13 @@ export async function importAllData(file: File): Promise<boolean> {
         }
 
         // Restore each key
-        Object.entries(payload.data).forEach(([key, value]) => {
+        const restorePromises = Object.entries(payload.data).map(async ([key, value]) => {
           if (value !== null) {
-            localStorage.setItem(key, value);
+            await indexedDBStorage.setItem(key, value);
           }
         });
 
-        resolve(true);
+        Promise.all(restorePromises).then(() => resolve(true)).catch(reject);
       } catch (err) {
         console.error('Import failed:', err);
         reject(err);

@@ -5,7 +5,7 @@ import type { AppSettings } from '../shared/types';
 
 interface SettingsStore {
   settings: AppSettings;
-  setTheme: (theme: 'light' | 'dark') => void;
+  setTheme: (theme: AppSettings['theme']) => void;
   toggleTheme: () => void;
   setCampaignName: (name: string) => void;
   setLanguage: (lang: 'de' | 'en') => void;
@@ -16,7 +16,7 @@ export const useSettingsStore = create<SettingsStore>()(
   persist(
     (set, get) => ({
       settings: {
-        theme: 'dark',
+        theme: 'modern-dark',
         language: 'de',
         defaultView: 'list',
         campaignName: 'Neue Kampagne',
@@ -28,8 +28,15 @@ export const useSettingsStore = create<SettingsStore>()(
 
       toggleTheme: () => {
         const current = get().settings.theme;
+        let nextTheme: AppSettings['theme'] = current;
+        
+        if (current === 'modern-dark') nextTheme = 'modern-light';
+        else if (current === 'modern-light') nextTheme = 'modern-dark';
+        else if (current === 'fantasy-dark') nextTheme = 'fantasy-light';
+        else if (current === 'fantasy-light') nextTheme = 'fantasy-dark';
+        
         set((s) => ({
-          settings: { ...s.settings, theme: current === 'dark' ? 'light' : 'dark' },
+          settings: { ...s.settings, theme: nextTheme },
         }));
       },
 

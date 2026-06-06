@@ -5,6 +5,7 @@ import { useGameplayStore } from '@/features/gameplay/store/gameplayStore';
 import { useStoryStore } from '@/features/story/store/storyStore';
 import { useItemStore } from '@/features/items/store/itemStore';
 import { useCalendarStore } from '@/features/calendar/store/calendarStore';
+import { useAudioStore } from '@/features/audio/store/audioStore';
 import { useCampaignStore } from '@/store/campaignStore';
 import { seedCharacters } from './characters.seed';
 import { seedRelationships } from './relationships.seed';
@@ -21,6 +22,8 @@ import { cthulhuStories } from './cthulhu-story.seed';
 import { cthulhuRelationships } from './cthulhu-relationships.seed';
 import { cthulhuItems } from './cthulhu-items.seed';
 import { cthulhuEvents, cthulhuCalendarConfig } from './cthulhu-calendar.seed';
+import { fantasyAudio, cthulhuAudio } from './audio.seed';
+import { v4 as uuidv4 } from 'uuid';
 
 export function loadSeedData(type: 'fantasy' | 'cthulhu' = 'fantasy') {
   const characterStore = useCharacterStore.getState();
@@ -40,6 +43,7 @@ export function loadSeedData(type: 'fantasy' | 'cthulhu' = 'fantasy') {
     useGameplayStore.setState({ entities: seedGameplayEntities.map(g => ({ ...g, campaignId })) });
     useStoryStore.setState({ entities: seedStories.map(s => ({ ...s, campaignId })) });
     useCalendarStore.setState({ events: seedEvents.map(e => ({ ...e, campaignId })) });
+    useAudioStore.setState({ tracks: fantasyAudio.map(a => ({ ...a, id: uuidv4(), campaignId })) });
     seedItems(campaignId);
   } else if (type === 'cthulhu') {
     useCharacterStore.setState({ characters: cthulhuCharacters.map(c => ({ ...c, campaignId })) });
@@ -49,6 +53,7 @@ export function loadSeedData(type: 'fantasy' | 'cthulhu' = 'fantasy') {
     useStoryStore.setState({ entities: cthulhuStories.map(s => ({ ...s, campaignId })) });
     useCalendarStore.setState({ events: cthulhuEvents.map(e => ({ ...e, campaignId })) });
     useItemStore.setState({ entities: cthulhuItems.map(i => ({ ...i, campaignId })) });
+    useAudioStore.setState({ tracks: cthulhuAudio.map(a => ({ ...a, id: uuidv4(), campaignId })) });
     
     // Set custom Cthulhu calendar config
     const currentConfigs = calendarStore.configs;
@@ -77,6 +82,7 @@ export function clearAllData() {
   useStoryStore.setState({ entities: [] });
   useItemStore.setState({ entities: [] });
   useCalendarStore.setState({ events: [] });
+  useAudioStore.setState({ tracks: [] });
 }
 
 export const SEED_STATS = {

@@ -7,7 +7,7 @@ import { useCampaignStore } from '@/store/campaignStore';
 
 interface StoryState {
   entities: StoryEntity[];
-  addEntity: (e: Omit<StoryEntity, 'id' | 'createdAt' | 'updatedAt' | 'entityType'>) => void;
+  addEntity: (e: Omit<StoryEntity, 'id' | 'createdAt' | 'updatedAt' | 'entityType'>) => StoryEntity;
   updateEntity: (id: string, updates: Partial<StoryEntity>) => void;
   deleteEntity: (id: string) => void;
   duplicateEntity: (id: string) => StoryEntity;
@@ -18,7 +18,7 @@ export const useStoryStore = create<StoryState>()(
   persist(
     (set, get) => ({
       entities: [],
-      addEntity: (data) => set((state) => {
+      addEntity: (data) => {
         const campaignId = useCampaignStore.getState().activeCampaignId || '';
         const newEntity: StoryEntity = {
           ...data,
@@ -30,8 +30,9 @@ export const useStoryStore = create<StoryState>()(
           metadata: data.metadata || {},
           tags: data.tags || [],
         };
-        return { entities: [...state.entities, newEntity] };
-      }),
+        set((state) => ({ entities: [...state.entities, newEntity] }));
+        return newEntity;
+      },
       updateEntity: (id, updates) => set((state) => ({
         entities: state.entities.map((e) =>
           e.id === id ? { ...e, ...updates, updatedAt: now() } : e

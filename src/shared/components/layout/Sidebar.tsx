@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, GitBranch, Network, Globe,
-  Swords, Download, Sun, Moon, Scroll, Search, Settings, BookOpen, Map, Calendar, Package
+  Swords, Download, Sun, Moon, Scroll, Search, Settings, BookOpen, Map, Calendar, Package, Music
 } from 'lucide-react';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useCampaignStore } from '@/store/campaignStore';
@@ -29,6 +29,7 @@ export default function Sidebar() {
     { to: '/worldbuilding', icon: Globe, label: t('sidebar.worldbuilding') },
     { to: '/maps', icon: Map, label: t('sidebar.maps') },
     { to: '/calendar', icon: Calendar, label: t('sidebar.calendar') || 'Kalender' },
+    { to: '/audio', icon: Music, label: 'Audio & Sounds' },
     { to: '/gameplay', icon: Swords, label: t('sidebar.gameplay') },
     { to: '/export', icon: Download, label: t('sidebar.export') },
   ];
@@ -108,17 +109,19 @@ export default function Sidebar() {
           <Settings size={16} />
           <span>{t('sidebar.settings')}</span>
         </NavLink>
-        <button
-          className={styles.themeToggle}
-          onClick={toggleTheme}
-          title={`Zu ${settings.theme === 'dark' ? 'Hell' : 'Dunkel'}modus wechseln`}
-        >
-          {settings.theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-        </button>
+        {(!settings.theme.startsWith('scifi') && !settings.theme.startsWith('cyberpunk')) && (
+          <button
+            className={styles.themeToggle}
+            onClick={toggleTheme}
+            title={`Zu ${settings.theme.includes('dark') ? 'Hell' : 'Dunkel'}modus wechseln`}
+          >
+            {settings.theme.includes('dark') ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+        )}
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: 'var(--space-4)' }}>
         <NavLink to="/changelog" style={{ fontSize: '10px', color: 'var(--color-text-tertiary)', textDecoration: 'none' }}>
-          v1.2.0 – Changelog
+          v0.14.0 Alpha – Changelog
         </NavLink>
       </div>
     </aside>

@@ -58,6 +58,9 @@ import EditStoryPage from '@/features/story/pages/EditStoryPage';
 // Changelog
 import ChangelogPage from '@/features/changelog/pages/ChangelogPage';
 
+// Audio
+import AudioPage from '@/features/audio/pages/AudioPage';
+
 export default function App() {
   const { settings } = useSettingsStore();
 
@@ -110,6 +113,7 @@ export default function App() {
           <Route path="/story/:id/edit" element={<EditStoryPage />} />
           
           <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/audio" element={<AudioPage />} />
           
           {/* Export */}
           <Route path="/export" element={<ExportPage />} />

@@ -4,6 +4,8 @@ import { ArrowLeft, Save } from 'lucide-react';
 import { useGameplayStore } from '@/features/gameplay/store/gameplayStore';
 import { useCharacterStore } from '@/features/characters/store/characterStore';
 import { useWorldStore } from '@/features/worldbuilding/store/worldStore';
+import { useCalendarStore } from '@/features/calendar/store/calendarStore';
+import { useCampaignStore } from '@/store/campaignStore';
 import { useToast } from '@/shared/components/atoms/Toast';
 import PageHeader from '@/shared/components/layout/PageHeader';
 import Button from '@/shared/components/atoms/Button';
@@ -18,6 +20,9 @@ export default function NewGameplayEntityPage() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const addEntity = useGameplayStore(s => s.addEntity);
+  const addCalendarEvent = useCalendarStore(s => s.addEvent);
+  const activeCampaignId = useCampaignStore(s => s.activeCampaignId);
+  const calendarConfig = useCalendarStore(s => s.getConfigForCampaign(activeCampaignId || ''));
   const characters = useCharacterStore(s => s.characters);
   const worldEntities = useWorldStore(s => s.entities);
   const { t } = useTranslation();
@@ -27,6 +32,7 @@ export default function NewGameplayEntityPage() {
     title: '', summary: '', description: '',
     status: 'open' as GameplayEntity['status'],
     difficulty: 'medium' as GameplayEntity['difficulty'],
+    inGameDateDay: '', inGameDateMonth: '0', inGameDateYear: '',
     goal: '', giver: '', progress: '', consequences: '',
     scene_goal: '', conflict_type: '', participants: '', possible_twist: '',
     encounter_type: '', enemies_or_participants: '', possible_outcomes: '',
@@ -54,9 +60,33 @@ export default function NewGameplayEntityPage() {
       session_number: form.session_number ? parseInt(form.session_number) : undefined,
       session_date: form.session_date, open_threads: form.open_threads, new_hooks: form.new_hooks,
       affected_entity_ids: [],
+      inGameDate: form.inGameDateDay && form.inGameDateYear ? {
+        day: parseInt(form.inGameDateDay),
+        month: parseInt(form.inGameDateMonth),
+        year: parseInt(form.inGameDateYear)
+      } : undefined,
       tags: form.tags, notes: form.notes, metadata: {},
     campaignId: '',
     });
+
+    // Auto-Sync Calendar
+    if (form.inGameDateDay && form.inGameDateYear) {
+      addCalendarEvent({
+        title: form.title,
+        description: form.summary || `Automatischer Eintrag: ${t(`types.game.${entityType}`)}`,
+        day: parseInt(form.inGameDateDay),
+        month: parseInt(form.inGameDateMonth),
+        year: parseInt(form.inGameDateYear),
+        linkedEntityId: entity.id,
+        linkedEntityType: entity.entityType,
+        color: 'var(--color-accent)',
+        status: 'active',
+        tags: [],
+        notes: '',
+        metadata: {}
+      });
+    }
+
     toast(`${t('gameplay.new')} "${entity.title}" OK.`, 'success');
     navigate(`/gameplay/${entity.id}`);
   };
@@ -109,6 +139,20 @@ export default function NewGameplayEntityPage() {
               <option value="hard">{t('diff.hard')}</option>
               <option value="deadly">{t('diff.deadly')}</option>
             </Select>
+          </FormField>
+        </div>
+
+        <div className={styles.formGrid}>
+          <FormField label="In-Game Datum (optional)">
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+              <Input type="number" placeholder="Tag" value={form.inGameDateDay} onChange={e => set('inGameDateDay', e.target.value)} style={{ width: '4rem' }} />
+              <Select value={form.inGameDateMonth} onChange={e => set('inGameDateMonth', e.target.value)}>
+                {calendarConfig.months.map((m, i) => (
+                  <option key={i} value={i}>{m.name}</option>
+                ))}
+              </Select>
+              <Input type="number" placeholder="Jahr" value={form.inGameDateYear} onChange={e => set('inGameDateYear', e.target.value)} style={{ width: '5rem' }} />
+            </div>
           </FormField>
         </div>
 

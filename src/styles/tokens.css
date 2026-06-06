@@ -3,14 +3,21 @@
    Ultimate GM Tool
    ============================================================ */
 
-:root {
+:root,
+[data-theme="modern-light"] {
+  /* --- Background Gradient Variables --- */
+  --bg-gradient-1: #f8f8f7;
+  --bg-gradient-2: #e0e7ff;
+  --bg-gradient-3: #f3e8ff;
+  --bg-gradient-4: #f8f8f7;
+
   /* --- Color Palette (light) --- */
-  --color-bg-base:        #f8f8f7; /* Keep base solid or we use gradient later */
-  --color-bg-surface:     rgba(255, 255, 255, 0.45);
-  --color-bg-elevated:    rgba(255, 255, 255, 0.65);
+  --color-bg-base:        #f8f8f7; 
+  --color-bg-surface:     rgba(255, 255, 255, 0.55); /* slightly more opaque for softer glass */
+  --color-bg-elevated:    rgba(255, 255, 255, 0.75);
   --color-bg-overlay:     rgba(0, 0, 0, 0.45);
-  --color-bg-muted:       rgba(241, 240, 239, 0.5);
-  --color-bg-hover:       rgba(255, 255, 255, 0.8);
+  --color-bg-muted:       rgba(241, 240, 239, 0.6);
+  --color-bg-hover:       rgba(255, 255, 255, 0.85);
   --color-bg-active:      rgba(255, 255, 255, 0.95);
 
   --color-border:         rgba(226, 224, 218, 0.5);
@@ -96,19 +103,19 @@
   --space-16:   4rem;
   --space-20:   5rem;
 
-  /* --- Radii --- */
-  --radius-sm:  0.375rem;
-  --radius-md:  0.75rem;
-  --radius-lg:  1rem;
-  --radius-xl:  1.25rem;
-  --radius-2xl: 1.75rem;
+  /* --- Radii (Softer, less blocky) --- */
+  --radius-sm:  0.5rem;
+  --radius-md:  0.875rem;
+  --radius-lg:  1.25rem;
+  --radius-xl:  1.5rem;
+  --radius-2xl: 2rem;
   --radius-full: 9999px;
 
-  /* --- Shadows --- */
-  --shadow-sm:  0 2px 4px rgba(0,0,0,0.02);
-  --shadow-md:  0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
-  --shadow-lg:  0 12px 32px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
-  --shadow-xl:  0 20px 48px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.05);
+  /* --- Shadows (Softer and larger spread) --- */
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.03);
+  --shadow-md:  0 8px 24px rgba(0,0,0,0.04), 0 2px 8px rgba(0,0,0,0.02);
+  --shadow-lg:  0 16px 40px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-xl:  0 24px 56px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.04);
   --shadow-focus: 0 0 0 3px var(--color-accent-muted);
 
   /* --- Transitions --- */
@@ -128,13 +135,18 @@
   --topbar-height:     0px;
 }
 
-/* Dark Mode */
-[data-theme="dark"] {
+/* --- Modern Dark --- */
+[data-theme="modern-dark"] {
+  --bg-gradient-1: #09090b;
+  --bg-gradient-2: #17172b;
+  --bg-gradient-3: #1f113d;
+  --bg-gradient-4: #09090b;
+
   --color-bg-base:        #09090b;
-  --color-bg-surface:     rgba(20, 20, 23, 0.45);
-  --color-bg-elevated:    rgba(30, 30, 35, 0.65);
+  --color-bg-surface:     rgba(20, 20, 23, 0.55);
+  --color-bg-elevated:    rgba(30, 30, 35, 0.75);
   --color-bg-overlay:     rgba(0, 0, 0, 0.75);
-  --color-bg-muted:       rgba(40, 40, 45, 0.5);
+  --color-bg-muted:       rgba(40, 40, 45, 0.6);
   --color-bg-hover:       rgba(50, 50, 60, 0.6);
   --color-bg-active:      rgba(60, 60, 75, 0.8);
 
@@ -160,4 +172,166 @@
   --shadow-md:  0 2px 8px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.15);
   --shadow-lg:  0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
   --shadow-xl:  0 16px 40px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* ============================================================
+   FANTASY THEME (Warm, Parchment, Serif)
+   ============================================================ */
+
+[data-theme="fantasy-light"] {
+  --bg-gradient-1: #f4f1ea;
+  --bg-gradient-2: #e6dfd1;
+  --bg-gradient-3: #f5eedc;
+  --bg-gradient-4: #f4f1ea;
+
+  --color-bg-base:        #f4f1ea;
+  --color-bg-surface:     rgba(240, 235, 225, 0.75);
+  --color-bg-elevated:    rgba(249, 246, 240, 0.90);
+  --color-bg-overlay:     rgba(41, 37, 36, 0.5);
+  --color-bg-muted:       rgba(214, 211, 201, 0.5);
+  --color-bg-hover:       rgba(255, 255, 255, 0.6);
+  --color-bg-active:      rgba(255, 255, 255, 0.9);
+
+  --color-border:         rgba(214, 205, 188, 0.6);
+  --color-border-strong:  rgba(168, 162, 158, 0.6);
+  --color-border-glass:   rgba(255, 255, 255, 0.4);
+
+  --color-text-primary:   #292524;
+  --color-text-secondary: #57534e;
+  --color-text-tertiary:  #a8a29e;
+  --color-text-inverse:   #f5f5f4;
+
+  --color-accent:         #b45309; /* Amber/Gold */
+  --color-accent-hover:   #92400e;
+  --color-accent-light:   #fef3c7;
+  --color-accent-muted:   #fde68a;
+  --color-border-focus:   var(--color-accent);
+
+  --font-display:         'Playfair Display', 'Merriweather', 'Lora', serif;
+}
+
+[data-theme="fantasy-dark"] {
+  --bg-gradient-1: #1c1917;
+  --bg-gradient-2: #29211c;
+  --bg-gradient-3: #1f1a14;
+  --bg-gradient-4: #1c1917;
+
+  --color-bg-base:        #1c1917; /* Dark Wood/Leather */
+  --color-bg-surface:     rgba(41, 37, 36, 0.75);
+  --color-bg-elevated:    rgba(68, 64, 60, 0.90);
+  --color-bg-overlay:     rgba(0, 0, 0, 0.75);
+  --color-bg-muted:       rgba(87, 83, 78, 0.5);
+  --color-bg-hover:       rgba(87, 83, 78, 0.8);
+  --color-bg-active:      rgba(120, 113, 108, 0.9);
+
+  --color-border:         rgba(87, 83, 78, 0.6);
+  --color-border-strong:  rgba(120, 113, 108, 0.6);
+  --color-border-glass:   rgba(255, 255, 255, 0.05);
+
+  --color-text-primary:   #f5f5f4;
+  --color-text-secondary: #d6d3d1;
+  --color-text-tertiary:  #a8a29e;
+  --color-text-inverse:   #1c1917;
+
+  --color-accent:         #d97706; /* Brighter Gold */
+  --color-accent-hover:   #f59e0b;
+  --color-accent-light:   #451a03;
+  --color-accent-muted:   #78350f;
+  --color-border-focus:   var(--color-accent);
+
+  --font-display:         'Playfair Display', 'Merriweather', 'Lora', serif;
+}
+
+/* ============================================================
+   SCI-FI THEME (Deep Space, Tech, Blue/Cyan)
+   ============================================================ */
+
+[data-theme="scifi-dark"] {
+  --bg-gradient-1: #020617;
+  --bg-gradient-2: #0f172a;
+  --bg-gradient-3: #081121;
+  --bg-gradient-4: #020617;
+
+  --color-bg-base:        #020617; /* Deepest Slate */
+  --color-bg-surface:     rgba(15, 23, 42, 0.75);
+  --color-bg-elevated:    rgba(30, 41, 59, 0.90);
+  --color-bg-overlay:     rgba(0, 0, 0, 0.85);
+  --color-bg-muted:       rgba(51, 65, 85, 0.5);
+  --color-bg-hover:       rgba(51, 65, 85, 0.8);
+  --color-bg-active:      rgba(71, 85, 105, 0.9);
+
+  --color-border:         rgba(51, 65, 85, 0.6);
+  --color-border-strong:  rgba(71, 85, 105, 0.6);
+  --color-border-glass:   rgba(56, 189, 248, 0.15); /* Tinted border */
+
+  --color-text-primary:   #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary:  #475569;
+  --color-text-inverse:   #020617;
+
+  --color-accent:         #0ea5e9; /* Light Blue / Cyan */
+  --color-accent-hover:   #38bdf8;
+  --color-accent-light:   #082f49;
+  --color-accent-muted:   #0c4a6e;
+  --color-border-focus:   var(--color-accent);
+
+  --font-display:         'Rajdhani', 'JetBrains Mono', 'Orbitron', monospace;
+  --font-sans:            'Inter', 'Roboto Mono', sans-serif;
+  --radius-md:            0.25rem; /* Sharper corners */
+  --radius-lg:            0.375rem;
+  --radius-xl:            0.5rem;
+  --radius-2xl:           0.75rem;
+}
+
+/* ============================================================
+   CYBERPUNK THEME (Neon, High Contrast, Black)
+   ============================================================ */
+
+[data-theme="cyberpunk-dark"] {
+  --bg-gradient-1: #000000;
+  --bg-gradient-2: #1a0011;
+  --bg-gradient-3: #001a1a;
+  --bg-gradient-4: #000000;
+
+  --color-bg-base:        #000000; /* Pure Black */
+  --color-bg-surface:     rgba(20, 20, 20, 0.85);
+  --color-bg-elevated:    rgba(35, 35, 35, 0.95);
+  --color-bg-overlay:     rgba(0, 0, 0, 0.85);
+  --color-bg-muted:       rgba(50, 50, 50, 0.5);
+  --color-bg-hover:       rgba(60, 60, 60, 0.8);
+  --color-bg-active:      rgba(80, 80, 80, 0.9);
+
+  --color-border:         rgba(255, 0, 102, 0.3); /* Neon Magenta hint */
+  --color-border-strong:  rgba(255, 0, 102, 0.6);
+  --color-border-glass:   rgba(255, 255, 0, 0.2); /* Neon Yellow hint */
+
+  --color-text-primary:   #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary:  #52525b;
+  --color-text-inverse:   #000000;
+
+  --color-accent:         #fde047; /* Cyberpunk Yellow */
+  --color-accent-hover:   #fef08a;
+  --color-accent-light:   #422006; /* Dark amber/brown */
+  --color-accent-muted:   #713f12;
+  --color-border-focus:   var(--color-accent);
+
+  /* Overriding some semantic colors to fit neon style */
+  --color-danger:         #ff003c;
+  --color-info:           #00f0ff;
+
+  --font-display:         'Oswald', 'Rajdhani', sans-serif;
+  --font-sans:            'Inter', sans-serif;
+  
+  --radius-sm:            0;
+  --radius-md:            0;
+  --radius-lg:            0;
+  --radius-xl:            0;
+  --radius-2xl:           0;
+  --radius-full:          0; /* Everything sharp and blocky */
+
+  --shadow-sm:            0 0 5px rgba(253, 224, 71, 0.2);
+  --shadow-md:            0 0 10px rgba(253, 224, 71, 0.1);
+  --shadow-lg:            0 0 20px rgba(255, 0, 102, 0.15);
+  --shadow-xl:            0 0 30px rgba(0, 240, 255, 0.1);
 }

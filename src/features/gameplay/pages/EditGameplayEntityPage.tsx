@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Save } from 'lucide-react';
 import { useGameplayStore } from '@/features/gameplay/store/gameplayStore';
+import { useCalendarStore } from '@/features/calendar/store/calendarStore';
+import { useCampaignStore } from '@/store/campaignStore';
 import { useToast } from '@/shared/components/atoms/Toast';
 import PageHeader from '@/shared/components/layout/PageHeader';
 import Button from '@/shared/components/atoms/Button';
@@ -17,6 +19,11 @@ export default function EditGameplayEntityPage() {
   const { t } = useTranslation();
   const getEntityById = useGameplayStore(s => s.getEntityById);
   const updateEntity = useGameplayStore(s => s.updateEntity);
+  const addCalendarEvent = useCalendarStore(s => s.addEvent);
+  const updateCalendarEvent = useCalendarStore(s => s.updateEvent);
+  const getEventsForEntity = useCalendarStore(s => s.getEventsForEntity);
+  const activeCampaignId = useCampaignStore(s => s.activeCampaignId);
+  const calendarConfig = useCalendarStore(s => s.getConfigForCampaign(activeCampaignId || ''));
 
   const entity = id ? getEntityById(id) : undefined;
 
@@ -40,6 +47,32 @@ export default function EditGameplayEntityPage() {
 
   const handleSave = () => {
     if (!form.title?.trim()) { toast(`${t('common.title')} ${t('common.required_err')}`, 'error'); return; }
+    
+    // Auto-Sync Calendar
+    if (form.inGameDate) {
+      const existingEvents = getEventsForEntity(id!);
+      const eventData = {
+        title: form.title,
+        description: form.summary || `Automatischer Eintrag: ${t(`types.game.${form.entityType}`)}`,
+        day: form.inGameDate.day,
+        month: form.inGameDate.month,
+        year: form.inGameDate.year,
+        linkedEntityId: id,
+        linkedEntityType: form.entityType || entity.entityType,
+        color: 'var(--color-accent)',
+        status: 'active' as const,
+        tags: [],
+        notes: '',
+        metadata: {}
+      };
+
+      if (existingEvents.length > 0) {
+        updateCalendarEvent(existingEvents[0].id, eventData);
+      } else {
+        addCalendarEvent(eventData);
+      }
+    }
+
     updateEntity(id!, form);
     toast(`${t('common.edit')} "${form.title}" OK.`, 'success');
     navigate(`/gameplay/${id}`);
@@ -89,6 +122,23 @@ export default function EditGameplayEntityPage() {
               value={(form.tags ?? []).join(', ')}
               onChange={e => set('tags', e.target.value.split(',').map(t => t.trim()).filter(Boolean))}
             />
+          </FormField>
+        </div>
+
+        <div className={styles.formGrid}>
+          <FormField label="In-Game Datum (optional)">
+            <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
+              <Input type="number" placeholder="Tag" value={form.inGameDate?.day ?? ''} 
+                onChange={e => set('inGameDate', { ...form.inGameDate, day: parseInt(e.target.value) || 1 } as any)} style={{ width: '4rem' }} />
+              <Select value={form.inGameDate?.month ?? 0} 
+                onChange={e => set('inGameDate', { ...form.inGameDate, month: parseInt(e.target.value) } as any)}>
+                {calendarConfig.months.map((m, i) => (
+                  <option key={i} value={i}>{m.name}</option>
+                ))}
+              </Select>
+              <Input type="number" placeholder="Jahr" value={form.inGameDate?.year ?? ''} 
+                onChange={e => set('inGameDate', { ...form.inGameDate, year: parseInt(e.target.value) || 1000 } as any)} style={{ width: '5rem' }} />
+            </div>
           </FormField>
         </div>
 
